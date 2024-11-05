@@ -15,7 +15,7 @@
 
 
 ### Glad to see you here!  
-I’m a lecturer specializing in food science, with a focus on sensory analysis and consumer behavior. My passion lies in applying cutting-edge technologies like AI, machine learning, and advanced data analysis within the food industry. This approach allows me to delve into the complexities of consumer preferences and product quality. I design research and systems that are data-driven yet accessible, innovative yet practical bridging the gap between scientific insight and real-world application in the evolving food sector.  
+I’m an assistant lecturer specializing in food science, with a focus on sensory analysis and consumer behavior. My passion lies in applying cutting-edge technologies like AI, machine learning, and advanced data analysis within the food industry. This approach allows me to delve into the complexities of consumer preferences and product quality. I design research and systems that are data-driven yet accessible, innovative yet practical bridging the gap between scientific insight and real-world application in the evolving food sector.  
   
 
 <br/>  
