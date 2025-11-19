@@ -3,21 +3,381 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AisensBFT — Landing Page</title>
-  <meta name="description" content="Landing page AisensBFT" />
+  <meta name="description" content="Danh mục Dự án Nghiên cứu — landing page mẫu, gọn gàng, hiện đại, tương thích đa thiết bị." />
+  <title>Dự án Nghiên cứu</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind config: custom colors & container
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f5f8ff',
+              100: '#e7f0ff',
+              200: '#cfe0ff',
+              500: '#2b6cb0' // accent deep blue
+            },
+            softgray: {
+              50: '#fafafa',
+              200: '#e6e9ee',
+              500: '#6b7280'
+            }
+          },
+          boxShadow: {
+            'soft-lg': '0 8px 24px rgba(15,23,42,0.08)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0;background:#f7fafc}
-    .card{max-width:760px;padding:40px;border-radius:12px;background:#fff;box-shadow:0 6px 30px rgba(0,0,0,.06);text-align:center}
-    h1{margin:0 0 8px;font-size:32px}
-    p{color:#4b5563}
-    .btn{display:inline-block;margin-top:18px;padding:12px 20px;border-radius:8px;text-decoration:none;border:1px solid #111; font-weight:600}
+    html, body { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
   </style>
 </head>
-<body>
-  <div class="card">
-    <h1>Welcome to AisensBFT</h1>
-    <p>Trang giới thiệu — landing page nhỏ, nhanh và an toàn chạy trên GitHub Pages.</p>
-    <a class="btn" href="#contact">Liên hệ</a>
+<body class="relative bg-white text-slate-800 antialiased overflow-x-hidden">
+
+  <!-- Decorative gradient blobs -->
+  <div class="pointer-events-none absolute inset-0 -z-10">
+    <div class="absolute -top-32 -right-16 h-72 w-72 rounded-full bg-brand-200 blur-3xl opacity-40 animate-[pulse_5s_ease-in-out_infinite]"></div>
+    <div class="absolute top-64 -left-24 h-80 w-80 rounded-full bg-cyan-100 blur-3xl opacity-40 animate-[pulse_7s_ease-in-out_infinite]"></div>
   </div>
+
+  <!-- NAV -->
+  <header class="border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+      <a href="#" class="inline-flex items-center gap-3">
+        <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-brand-100 text-brand-500 font-semibold shadow-sm">A</div>
+        <div>
+          <div class="text-sm font-semibold">AIFS-like Lab</div>
+          <div class="text-xs text-slate-500">Nghiên cứu & Thấu hiểu</div>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm text-slate-600">
+        <a href="#projects" class="hover:text-slate-900">Dự án</a>
+        <a href="#about" class="hover:text-slate-900">Giới thiệu</a>
+        <a href="#contact" class="hover:text-slate-900">Liên hệ</a>
+        <a href="#" class="px-4 py-2 rounded-md border border-gray-200 text-sm hover:bg-gray-50">Đăng nhập</a>
+      </nav>
+
+      <div class="md:hidden">
+        <!-- simple menu icon for visual only -->
+        <button aria-label="Open menu" class="p-2 rounded-md hover:bg-gray-100">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative bg-gradient-to-b from-brand-50 via-white to-white overflow-hidden">
+    <div class="absolute inset-0 opacity-30">
+      <div class="absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(circle_at_top,rgba(43,108,176,0.25),transparent_60%)] blur-3xl"></div>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-6 py-16 md:py-24">
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 rounded-full border border-white/50 bg-white/70 px-4 py-2 text-sm shadow-soft-lg backdrop-blur">
+            <span class="h-2 w-2 rounded-full bg-emerald-400 animate-[ping_3s_linear_infinite]"></span>
+            <span>Ý tưởng → Tác động</span>
+          </div>
+          <h1 class="mt-4 text-4xl md:text-5xl font-extrabold leading-tight text-slate-900">Danh Mục Dự Án Nghiên Cứu</h1>
+          <p class="mt-4 text-lg text-slate-600 max-w-2xl">
+            Khám phá các giải pháp dựa trên dữ liệu cho khoa học xã hội, công nghệ và chính sách.
+            Lướt qua từng dự án với tóm tắt, đội ngũ thực hiện và liên kết đến báo cáo hoặc bản demo.
+          </p>
+
+          <div class="mt-6 flex flex-wrap gap-3 items-center">
+            <a href="#projects" class="inline-flex items-center gap-2 bg-brand-500 text-white px-5 py-3 rounded-lg shadow-lg shadow-brand-500/30 hover:shadow-brand-500/50 hover:-translate-y-0.5 transition transform">
+              Khám phá dự án
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="-mr-0.5"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="#about" class="text-sm text-slate-700 px-3 py-2 rounded-md border border-gray-200 hover:bg-gray-50">Về phòng lab</a>
+          </div>
+
+          <div class="mt-6 text-sm text-slate-500">
+            <strong class="text-slate-700">Mẹo:</strong> Nhấp vào từng thẻ dự án để xem chi tiết và tài nguyên.
+          </div>
+        </div>
+
+        <div class="hidden md:block">
+          <div class="relative rounded-2xl overflow-hidden shadow-soft-lg">
+            <img src="https://images.unsplash.com/photo-1526378722301-76a5b5b0f37f?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=1e9f9a9f9d" alt="Minh họa nghiên cứu" class="w-full h-64 object-cover">
+            <div class="absolute bottom-4 left-4 bg-white/80 backdrop-blur-sm rounded-lg p-3">
+              <div class="text-xs text-slate-600">Dự án nổi bật</div>
+              <div class="text-sm font-semibold text-slate-900">Di chuyển Đô thị & Chính sách</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECT GRID -->
+  <main id="projects" class="max-w-7xl mx-auto px-6 py-12">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h2 class="text-2xl font-semibold text-slate-900">Dự án nổi bật</h2>
+        <p class="text-sm text-slate-600 mt-1">Những sáng kiến nghiên cứu được cập nhật thường xuyên.</p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <label class="text-sm text-slate-600 hidden sm:inline">Lọc:</label>
+        <select class="text-sm rounded-md border border-gray-200 px-3 py-2 text-slate-700">
+          <option>Tất cả</option>
+          <option>Đô thị</option>
+          <option>Sức khỏe</option>
+          <option>AI & Dữ liệu</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <!-- Card 1 -->
+      <article class="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-soft-lg transition transform hover:-translate-y-1 overflow-hidden">
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 bg-gradient-to-br from-brand-50 via-transparent to-transparent pointer-events-none"></div>
+        <a href="#" class="block overflow-hidden rounded-t-2xl">
+          <img src="https://images.unsplash.com/photo-1532074205216-d0e1f6a4b8f8?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=3b2b1b0b1b" alt="Project 1" class="w-full h-44 object-cover">
+        </a>
+        <div class="p-5">
+          <div class="flex items-center justify-between">
+            <div class="text-xs text-slate-500">AI & Dữ liệu</div>
+            <div class="text-xs text-slate-400">2025</div>
+          </div>
+          <h3 class="mt-3 text-lg font-semibold text-slate-900">Công bằng trong Máy học</h3>
+          <p class="mt-2 text-sm text-slate-600">Nghiên cứu các chiến lược giảm thiên lệch để mô hình hoạt động công bằng trên dữ liệu xã hội.</p>
+          <div class="mt-4 flex items-center justify-between">
+            <a href="#" class="text-sm font-medium text-brand-500 hover:underline">Xem dự án →</a>
+            <div class="text-sm text-slate-500">Nhóm: 6</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-soft-lg transition transform hover:-translate-y-1 overflow-hidden">
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 bg-gradient-to-br from-brand-50 via-transparent to-transparent pointer-events-none"></div>
+        <a href="#" class="block overflow-hidden rounded-t-2xl">
+          <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=8f5f3b9b3b" alt="Project 2" class="w-full h-44 object-cover">
+        </a>
+        <div class="p-5">
+          <div class="flex items-center justify-between">
+            <div class="text-xs text-slate-500">Đô thị</div>
+            <div class="text-xs text-slate-400">2024</div>
+          </div>
+          <h3 class="mt-3 text-lg font-semibold text-slate-900">Di chuyển Đô thị Thông minh</h3>
+          <p class="mt-2 text-sm text-slate-600">Mô hình dựa trên dữ liệu giúp giảm ùn tắc và hỗ trợ quyết định cho giao thông công cộng.</p>
+          <div class="mt-4 flex items-center justify-between">
+            <a href="#" class="text-sm font-medium text-brand-500 hover:underline">Xem dự án →</a>
+            <div class="text-sm text-slate-500">Nhóm: 4</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-soft-lg transition transform hover:-translate-y-1 overflow-hidden">
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 bg-gradient-to-br from-brand-50 via-transparent to-transparent pointer-events-none"></div>
+        <a href="#" class="block overflow-hidden rounded-t-2xl">
+          <img src="https://images.unsplash.com/photo-1581093588401-6f6a9f5f58d2?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=0f1a2b3c4d" alt="Project 3" class="w-full h-44 object-cover">
+        </a>
+        <div class="p-5">
+          <div class="flex items-center justify-between">
+            <div class="text-xs text-slate-500">Sức khỏe</div>
+            <div class="text-xs text-slate-400">2025</div>
+          </div>
+          <h3 class="mt-3 text-lg font-semibold text-slate-900">Y tế Công cộng & Chính sách</h3>
+          <p class="mt-2 text-sm text-slate-600">Đánh giá các can thiệp nhằm tăng tỷ lệ tiêm chủng tại cộng đồng đô thị.</p>
+          <div class="mt-4 flex items-center justify-between">
+            <a href="#" class="text-sm font-medium text-brand-500 hover:underline">Xem dự án →</a>
+            <div class="text-sm text-slate-500">Nhóm: 5</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-soft-lg transition transform hover:-translate-y-1 overflow-hidden">
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 bg-gradient-to-br from-brand-50 via-transparent to-transparent pointer-events-none"></div>
+        <a href="#" class="block overflow-hidden rounded-t-2xl">
+          <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=abcd1234ef" alt="Project 4" class="w-full h-44 object-cover">
+        </a>
+        <div class="p-5">
+          <div class="flex items-center justify-between">
+            <div class="text-xs text-slate-500">Chính sách</div>
+            <div class="text-xs text-slate-400">2023</div>
+          </div>
+          <h3 class="mt-3 text-lg font-semibold text-slate-900">Nghiên cứu Khả năng Chi trả Nhà ở</h3>
+          <p class="mt-2 text-sm text-slate-600">So sánh giữa các thành phố để xác định đòn bẩy chính sách tác động đến thị trường nhà ở.</p>
+          <div class="mt-4 flex items-center justify-between">
+            <a href="#" class="text-sm font-medium text-brand-500 hover:underline">Xem dự án →</a>
+            <div class="text-sm text-slate-500">Nhóm: 3</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-soft-lg transition transform hover:-translate-y-1 overflow-hidden">
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 bg-gradient-to-br from-brand-50 via-transparent to-transparent pointer-events-none"></div>
+        <a href="#" class="block overflow-hidden rounded-t-2xl">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=ef456789ab" alt="Project 5" class="w-full h-44 object-cover">
+        </a>
+        <div class="p-5">
+          <div class="flex items-center justify-between">
+            <div class="text-xs text-slate-500">Dữ liệu</div>
+            <div class="text-xs text-slate-400">2025</div>
+          </div>
+          <h3 class="mt-3 text-lg font-semibold text-slate-900">Dữ liệu Mở cho Thành phố</h3>
+          <p class="mt-2 text-sm text-slate-600">Xây dựng bộ dữ liệu dễ truy cập và công cụ trực quan cho nhà quản lý đô thị.</p>
+          <div class="mt-4 flex items-center justify-between">
+            <a href="#" class="text-sm font-medium text-brand-500 hover:underline">Xem dự án →</a>
+            <div class="text-sm text-slate-500">Nhóm: 8</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-soft-lg transition transform hover:-translate-y-1 overflow-hidden">
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 bg-gradient-to-br from-brand-50 via-transparent to-transparent pointer-events-none"></div>
+        <a href="#" class="block overflow-hidden rounded-t-2xl">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=1122334455" alt="Project 6" class="w-full h-44 object-cover">
+        </a>
+        <div class="p-5">
+          <div class="flex items-center justify-between">
+            <div class="text-xs text-slate-500">Giáo dục</div>
+            <div class="text-xs text-slate-400">2022</div>
+          </div>
+          <h3 class="mt-3 text-lg font-semibold text-slate-900">Phân tích Học tập</h3>
+          <p class="mt-2 text-sm text-slate-600">Thử nghiệm học thích ứng để cá nhân hóa phản hồi và lộ trình cho người học.</p>
+          <div class="mt-4 flex items-center justify-between">
+            <a href="#" class="text-sm font-medium text-brand-500 hover:underline">Xem dự án →</a>
+            <div class="text-sm text-slate-500">Nhóm: 7</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <!-- ABOUT / MISSION -->
+  <section id="about" class="relative bg-gray-50 overflow-hidden">
+    <div class="absolute inset-0 opacity-40 bg-[radial-gradient(circle,rgba(43,108,176,0.15),transparent_55%)]"></div>
+    <div class="relative max-w-7xl mx-auto px-6 py-16">
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+        <div class="order-2 md:order-1">
+          <h3 class="text-2xl font-semibold">Về phòng lab</h3>
+          <p class="mt-4 text-slate-600">Chúng tôi là nhóm liên ngành kết hợp khoa học xã hội, khoa học máy tính và phân tích chính sách để tạo ra nghiên cứu giàu tính ứng dụng. Các dự án cân bằng giữa phương pháp nghiêm ngặt và sản phẩm dễ tiếp cận dành cho nhà thực hành lẫn cộng đồng.</p>
+          <ul class="mt-6 space-y-3 text-slate-600">
+            <li class="flex items-start gap-3">
+              <div class="mt-1 w-2.5 h-2.5 rounded-full bg-brand-500"></div>
+              <div><strong>Liên ngành:</strong> đội ngũ sở hữu chuyên môn đa dạng.</div>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="mt-1 w-2.5 h-2.5 rounded-full bg-brand-500"></div>
+              <div><strong>Mở & Tái lập:</strong> chia sẻ dữ liệu và mã nguồn khi có thể.</div>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="mt-1 w-2.5 h-2.5 rounded-full bg-brand-500"></div>
+              <div><strong>Định hướng chính sách:</strong> khuyến nghị thiết thực cho nhà hoạch định.</div>
+            </li>
+          </ul>
+          <div class="mt-6">
+            <a href="#contact" class="inline-block px-5 py-3 rounded-lg border border-gray-200 text-sm hover:bg-white">Liên hệ với chúng tôi</a>
+          </div>
+        </div>
+
+        <div class="order-1 md:order-2">
+          <div class="rounded-2xl overflow-hidden shadow-soft-lg">
+            <img src="https://images.unsplash.com/photo-1508385082359-f0c2f6d5f9dd?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=9988776655" alt="Ảnh giới thiệu" class="w-full h-72 object-cover">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section id="contact" class="max-w-7xl mx-auto px-6 py-12">
+    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-white via-brand-50 to-brand-100 border border-gray-100 p-8 md:p-12 shadow-soft-lg">
+      <div class="absolute -top-12 -right-10 h-32 w-32 rounded-full bg-white/40 blur-2xl"></div>
+      <div class="md:flex md:items-center md:justify-between relative">
+        <div>
+          <h4 class="text-xl font-semibold">Muốn nhận thông tin dự án mới?</h4>
+          <p class="mt-2 text-slate-600">Đăng ký bản tin để không bỏ lỡ ấn phẩm và bộ dữ liệu mới nhất.</p>
+        </div>
+        <form class="mt-6 md:mt-0 flex gap-3">
+          <input type="email" placeholder="ban@tochuc.edu" class="px-4 py-3 rounded-lg border border-gray-200 w-full md:w-80 focus:outline-none" />
+          <button class="px-4 py-3 rounded-lg bg-brand-500 text-white font-medium">Đăng ký</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-gray-100 bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-10">
+      <div class="md:flex md:justify-between md:items-start gap-8">
+        <div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-brand-100 flex items-center justify-center font-semibold text-brand-500">A</div>
+            <div>
+              <div class="text-sm font-semibold">AIFS-like Lab</div>
+              <div class="text-xs text-slate-500">Nghiên cứu & Thấu hiểu</div>
+            </div>
+          </div>
+          <p class="mt-4 text-sm text-slate-600 max-w-sm">Trang đích mẫu dành cho các dự án học thuật. Hãy thay thế nội dung, hình ảnh và liên kết bằng thông tin của bạn.</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 sm:grid-cols-4">
+          <div>
+            <h5 class="text-sm font-semibold text-slate-900">Khám phá</h5>
+            <ul class="mt-3 text-sm text-slate-600 space-y-2">
+              <li><a href="#projects" class="hover:underline">Dự án</a></li>
+              <li><a href="#about" class="hover:underline">Giới thiệu</a></li>
+              <li><a href="#contact" class="hover:underline">Liên hệ</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="text-sm font-semibold text-slate-900">Tài nguyên</h5>
+            <ul class="mt-3 text-sm text-slate-600 space-y-2">
+              <li><a href="#" class="hover:underline">Ấn phẩm</a></li>
+              <li><a href="#" class="hover:underline">Bộ dữ liệu</a></li>
+              <li><a href="#" class="hover:underline">Mã nguồn</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="text-sm font-semibold text-slate-900">Chính sách</h5>
+            <ul class="mt-3 text-sm text-slate-600 space-y-2">
+              <li><a href="#" class="hover:underline">Điều khoản</a></li>
+              <li><a href="#" class="hover:underline">Quyền riêng tư</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="text-sm font-semibold text-slate-900">Kết nối</h5>
+            <div class="mt-3 flex items-center gap-3">
+              <!-- Inline SVG icons -->
+              <a href="#" aria-label="Twitter" class="p-2 rounded-md hover:bg-gray-100"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M8 19c7.732 0 11.955-6.408 11.955-11.955 0-.182 0-.363-.012-.544A8.548 8.548 0 0 0 22 4.92a8.36 8.36 0 0 1-2.357.646 4.137 4.137 0 0 0 1.815-2.28 8.253 8.253 0 0 1-2.605.995A4.122 4.122 0 0 0 11.07 8.07c0 .32.036.63.106.928A11.704 11.704 0 0 1 3.16 4.15a4.123 4.123 0 0 0 1.276 5.503 4.077 4.077 0 0 1-1.867-.516v.05c0 1.929 1.372 3.537 3.193 3.906a4.136 4.136 0 0 1-1.86.07c.525 1.63 2.048 2.816 3.853 2.848A8.28 8.28 0 0 1 2 17.58 11.68 11.68 0 0 0 8 19z" stroke="currentColor" stroke-width="0.8" /></svg></a>
+
+              <a href="#" aria-label="LinkedIn" class="p-2 rounded-md hover:bg-gray-100"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.1 1 2.48 1s2.5 1.12 2.5 2.5zM.34 8.24h4.28V24H.34V8.24zM8.94 8.24h4.1v2.13h.06c.57-1.08 1.97-2.22 4.05-2.22 4.33 0 5.12 2.86 5.12 6.58V24h-4.28v-7.53c0-1.8 0-4.12-2.51-4.12-2.51 0-2.9 1.98-2.9 4.02V24H8.94V8.24z" stroke="currentColor" stroke-width="0.7"/></svg></a>
+
+              <a href="#" aria-label="GitHub" class="p-2 rounded-md hover:bg-gray-100"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.1c-3.34.72-4.03-1.6-4.03-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.1-.75.08-.74.08-.74 1.2.09 1.83 1.23 1.83 1.23 1.08 1.85 2.83 1.32 3.52 1.01.11-.79.42-1.32.76-1.62-2.66-.3-5.46-1.33-5.46-5.93 0-1.31.47-2.38 1.23-3.22-.12-.3-.54-1.54.12-3.2 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0C17.9 5.8 18.9 6.12 18.9 6.12c.66 1.66.24 2.9.12 3.2.77.84 1.23 1.9 1.23 3.22 0 4.6-2.8 5.62-5.47 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.7.82.58A12 12 0 0 0 12 .5z" stroke="currentColor" stroke-width="0.6"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 text-sm text-slate-500 border-t border-gray-100 pt-6">
+        © <span id="year"></span> AIFS-like Lab — Xây dựng với ❤️ · <span class="ml-2">Trang mẫu dành cho việc giới thiệu dự án</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
+    
