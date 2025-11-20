@@ -1,383 +1,1758 @@
-<!doctype html>
-<html lang="vi">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="AISens - Đại học Bách Khoa Hà Nội: danh mục dự án nghiên cứu cảm quan, AI và chuyển giao công nghệ." />
-  <title>AISens | ĐHBK Hà Nội</title>
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SenSBFT</title>
 
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    // Tailwind config: custom colors & container
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#f5f8ff',
-              100: '#e7f0ff',
-              200: '#cfe0ff',
-              500: '#2b6cb0' // accent deep blue
-            },
-            softgray: {
-              50: '#fafafa',
-              200: '#e6e9ee',
-              500: '#6b7280'
-            }
-          },
-          boxShadow: {
-            'soft-lg': '0 8px 24px rgba(15,23,42,0.08)'
-          }
+    <script>
+      document.documentElement.classList.remove('no-js');
+      document.documentElement.classList.add('js');
+    </script>
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="css/vendor.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <style>
+      .project-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .project-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      }
+      .project-card:hover .project-card__content {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      }
+      .project-card__image img {
+        transition: transform 0.3s ease;
+      }
+      .project-card:hover .project-card__image img {
+        transform: scale(1.05);
+      }
+      .team-row {
+        margin-bottom: 2rem;
+      }
+      @media screen and (max-width: 1400px) {
+        .team-row[style*='repeat(7, 1fr)'] {
+          grid-template-columns: repeat(5, 1fr) !important;
         }
       }
-    }
-  </script>
+      @media screen and (max-width: 1200px) {
+        .team-row[style*='repeat(7, 1fr)'] {
+          grid-template-columns: repeat(4, 1fr) !important;
+        }
+        .team-row[style*='repeat(5, 1fr)'] {
+          grid-template-columns: repeat(3, 1fr) !important;
+        }
+      }
+      @media screen and (max-width: 800px) {
+        .team-row[style*='repeat(7, 1fr)'] {
+          grid-template-columns: repeat(3, 1fr) !important;
+        }
+        .team-row[style*='repeat(5, 1fr)'] {
+          grid-template-columns: repeat(2, 1fr) !important;
+        }
+      }
+      @media screen and (max-width: 600px) {
+        .team-row {
+          grid-template-columns: 1fr !important;
+        }
+      }
+    </style>
 
-  <!-- Font -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    html, body { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
-  </style>
-</head>
-<body class="relative bg-white text-slate-800 antialiased overflow-x-hidden">
+    <!-- favicons
+    ================================================== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="images/sensbft-logo.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="images/sensbft-logo.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="images/sensbft-logo.png" />
+    <link rel="manifest" href="site.webmanifest" />
+  </head>
 
-  <!-- Decorative gradient blobs -->
-  <div class="pointer-events-none absolute inset-0 -z-10">
-    <div class="absolute -top-32 -right-16 h-72 w-72 rounded-full bg-brand-200 blur-3xl opacity-40 animate-[pulse_5s_ease-in-out_infinite]"></div>
-    <div class="absolute top-64 -left-24 h-80 w-80 rounded-full bg-cyan-100 blur-3xl opacity-40 animate-[pulse_7s_ease-in-out_infinite]"></div>
-  </div>
-
-  <!-- NAV -->
-  <header class="border-b border-gray-100">
-    <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-      <a href="#" class="inline-flex items-center gap-3">
-        <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-brand-100 text-brand-500 font-semibold shadow-sm">A</div>
-        <div>
-          <div class="text-sm font-semibold">AISens Lab</div>
-          <div class="text-xs text-slate-500">ĐH Bách Khoa Hà Nội</div>
-        </div>
-      </a>
-
-      <nav class="hidden md:flex items-center gap-6 text-sm text-slate-600">
-        <a href="#projects" class="hover:text-slate-900">Dự án</a>
-        <a href="#about" class="hover:text-slate-900">Giới thiệu</a>
-        <a href="#contact" class="hover:text-slate-900">Liên hệ</a>
-        <a href="#" class="px-4 py-2 rounded-md border border-gray-200 text-sm hover:bg-gray-50">Đăng nhập</a>
-      </nav>
-
-      <div class="md:hidden">
-        <!-- simple menu icon for visual only -->
-        <button aria-label="Open menu" class="p-2 rounded-md hover:bg-gray-100">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </button>
+  <body id="top">
+    <!-- preloader
+    ================================================== -->
+    <div id="preloader">
+      <div id="loader" class="dots-fade">
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
     </div>
-  </header>
 
-  <!-- HERO -->
-  <section class="relative bg-gradient-to-b from-brand-50 via-white to-white overflow-hidden">
-    <div class="absolute inset-0 opacity-30">
-      <div class="absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(circle_at_top,rgba(43,108,176,0.25),transparent_60%)] blur-3xl"></div>
-    </div>
-    <div class="relative max-w-7xl mx-auto px-6 py-16 md:py-24">
-      <div class="grid md:grid-cols-2 gap-10 items-center">
-        <div>
-          <div class="inline-flex items-center gap-2 rounded-full border border-white/50 bg-white/70 px-4 py-2 text-sm shadow-soft-lg backdrop-blur">
-            <span class="h-2 w-2 rounded-full bg-emerald-400 animate-[ping_3s_linear_infinite]"></span>
-            <span>Ý tưởng → Tác động</span>
+    <!-- page wrap
+    ================================================== -->
+    <div id="page" class="s-pagewrap ss-home">
+      <!-- # site header 
+        ================================================== -->
+      <header class="s-header">
+        <div class="container s-header__content">
+          <div class="s-header__block">
+            <div class="header-logo">
+              <a class="logo" href="index.html">
+                <img src="images/sensbft-logo.png" alt="Homepage" />
+              </a>
+            </div>
+            <a class="header-menu-toggle" href="#0"><span>Menu</span></a>
           </div>
-          <h1 class="mt-4 text-4xl md:text-5xl font-extrabold leading-tight text-slate-900">AISens - Trung tâm ứng dụng AI trong Cảm quan Thực phẩm</h1>
-          <p class="mt-4 text-lg text-slate-600 max-w-2xl">
-            Chúng tôi là AISens, phòng thí nghiệm nghiên cứu của Trường Hóa và Khoa học Sự sống, Đại học Bách Khoa Hà Nội.
-            Các nhóm kết hợp cảm quan, khoa học dữ liệu và hạ tầng số để chuyển hóa AI vào sản phẩm trải nghiệm người dùng, công nghiệp thực phẩm.
-          </p>
+          <!-- end s-header__block -->
 
-          <div class="mt-6 flex flex-wrap gap-3 items-center">
-            <a href="#projects" class="inline-flex items-center gap-2 bg-brand-500 text-white px-5 py-3 rounded-lg shadow-lg shadow-brand-500/30 hover:shadow-brand-500/50 hover:-translate-y-0.5 transition transform">
-              Khám phá dự án
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="-mr-0.5"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <nav class="header-nav">
+            <ul class="header-nav__links">
+              <li class="current"><a class="smoothscroll" href="#intro" data-i18n="nav.intro">Mở đầu</a></li>
+              <li><a class="smoothscroll" href="#about" data-i18n="nav.about">Sứ mệnh</a></li>
+              <li><a class="smoothscroll" href="#menu" data-i18n="nav.projects">Dự án</a></li>
+              <li><a class="smoothscroll" href="#testimonials" data-i18n="nav.team">Đội ngũ</a></li>
+            </ul>
+            <!-- end header-nav__links -->
+
+            <div class="header-controls">
+              <div class="header-language-toggle">
+                <button class="lang-btn" id="lang-toggle" aria-label="Toggle language">
+                  <span class="lang-btn__text" data-lang="vi">VI</span>
+                  <span class="lang-btn__text" data-lang="en" style="display: none">EN</span>
+                </button>
+              </div>
+              <!-- <div class="header-theme-toggle">
+                <label class="theme-switch" for="theme-toggle">
+                  <input type="checkbox" id="theme-toggle" class="theme-switch__input" />
+                  <span class="theme-switch__slider">
+                    <svg class="theme-switch__icon theme-switch__icon--sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="5"></circle>
+                      <line x1="12" y1="1" x2="12" y2="3"></line>
+                      <line x1="12" y1="21" x2="12" y2="23"></line>
+                      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                      <line x1="1" y1="12" x2="3" y2="12"></line>
+                      <line x1="21" y1="12" x2="23" y2="12"></line>
+                      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                    <svg class="theme-switch__icon theme-switch__icon--moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                  </span>
+                </label>
+            </div> -->
+            </div>
+            <!-- end header-controls -->
+          </nav>
+          <!-- end header-nav -->
+        </div>
+        <!-- end s-header__content -->
+      </header>
+      <!-- end s-header -->
+
+      <!-- # intro
+        ================================================== -->
+      <section id="intro" class="container s-intro target-section">
+        <div class="grid-block s-intro__content">
+          <div class="intro-header">
+            <div class="intro-header__overline" data-i18n="intro.welcome">Chào mừng bạn đến với!</div>
+            <h1 class="intro-header__big-type">
+              AI Sensory <br />
+              Lab
+            </h1>
+          </div>
+          <!-- end intro-header -->
+          <!-- 
+          <figure class="intro-pic-primary">
+            <img src="images/11." srcset="images/11.webp 1x, images/11.webp 2x" alt="" />
+          </figure> -->
+          <!-- end intro-pic-primary -->
+
+          <div class="intro-block-content">
+            <figure class="intro-block-content__pic">
+              <img src="images/1.webp" srcset="images/1.webp 1x, images/1.webp 2x" alt="" />
+            </figure>
+            <!-- end intro-pic-secondary -->
+
+            <div class="intro-block-content__text-wrap">
+              <p class="intro-block-content__text" data-i18n="intro.quote">
+                Khoa học không chỉ là khám phá, mà còn là trách nhiệm kiến tạo một tương lai tốt đẹp hơn cho cộng đồng.
+              </p>
+
+              <ul class="intro-block-content__social">
+                <li><a href="#0">FB</a></li>
+                <li><a href="#0">IG</a></li>
+                <li><a href="#0">PI</a></li>
+                <li><a href="#0">X</a></li>
+              </ul>
+            </div>
+            <!-- end intro-block-content__social -->
+          </div>
+          <!-- end intro-block-content -->
+
+          <div class="intro-scroll">
+            <a class="smoothscroll" href="#about">
+              <span class="intro-scroll__circle-text"></span>
+              <span class="intro-scroll__text u-screen-reader-text" data-i18n="intro.scroll">Scroll Down</span>
+              <div class="intro-scroll__icon">
+                <svg
+                  clip-rule="evenodd"
+                  fill-rule="evenodd"
+                  stroke-linejoin="round"
+                  stroke-miterlimit="2"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m5.214 14.522s4.505 4.502 6.259 6.255c.146.147.338.22.53.22s.384-.073.53-.22c1.754-1.752 6.249-6.244 6.249-6.244.144-.144.216-.334.217-.523 0-.193-.074-.386-.221-.534-.293-.293-.766-.294-1.057-.004l-4.968 4.968v-14.692c0-.414-.336-.75-.75-.75s-.75.336-.75.75v14.692l-4.979-4.978c-.289-.289-.761-.287-1.054.006-.148.148-.222.341-.221.534 0 .189.071.377.215.52z"
+                    fill-rule="nonzero"
+                  />
+                </svg>
+              </div>
             </a>
-            <a href="#about" class="text-sm text-slate-700 px-3 py-2 rounded-md border border-gray-200 hover:bg-gray-50">Về AISens</a>
           </div>
+          <!-- end intro-scroll -->
+        </div>
+        <!-- grid-block -->
+      </section>
+      <!-- end s-intro -->
 
-          <div class="mt-6 text-sm text-slate-500">
-            <strong class="text-slate-700">Mẹo:</strong> Nhấp vào từng thẻ dự án để xem tài nguyên, demo và báo cáo cảm quan.
+      <!-- # about
+        ================================================== -->
+      <section id="about" class="container s-about target-section">
+        <div class="row s-about__content">
+          <div class="column xl-4 lg-5 md-12 s-about__content-start">
+            <div class="section-header" data-num="01">
+              <h2 class="text-display-title" data-i18n="about.title">The First Mover</h2>
+            </div>
+
+            <figure class="about-pic-primary">
+              <img src="images/22.png" srcset="images/22.png 1x, images/22.png 2x" alt="" />
+            </figure>
+          </div>
+          <!-- end s-about__content-start -->
+
+          <div class="column xl-6 lg-6 md-12 s-about__content-end" style="text-align: justify">
+            <div class="column lg-6 md-12 s-about__content-end">
+              <section id="tam-nhin">
+                <h2 data-i18n="about.vision.title">Tầm nhìn</h2>
+                <p data-i18n="about.vision.text">
+                  Chúng tôi hướng tới trở thành đơn vị tiên phong trong lĩnh vực Khoa học Cảm quan và Nghiên cứu Người
+                  tiêu dùng tại Việt Nam, dẫn dắt bằng năng lực ứng dụng dữ liệu, công nghệ và các mô hình đánh giá tiên
+                  tiến.
+                </p>
+              </section>
+
+              <section id="su-menh">
+                <h2 data-i18n="about.mission.title">Sứ mệnh</h2>
+                <p data-i18n="about.mission.text">
+                  Chuẩn hóa và nâng tầm các phương pháp nghiên cứu cảm quan – từ thiết kế thí nghiệm, thu thập dữ liệu
+                  đến phân tích – nhằm đảm bảo độ chính xác, tính lặp lại và khả năng ứng dụng thực tiễn. Chúng tôi hỗ
+                  trợ doanh nghiệp ra quyết định R&D nhanh, hiệu quả và có cơ sở khoa học vững chắc.
+                </p>
+              </section>
+
+              <section id="dinh-huong-chuyen-mon">
+                <h2 data-i18n="about.direction.title">Định hướng chuyên môn</h2>
+                <p data-i18n="about.direction.text">
+                  Dựa trên nền tảng khoa học cảm quan hiện đại kết hợp phân tích dữ liệu và công nghệ số, chúng tôi phát
+                  triển các giải pháp giúp doanh nghiệp hiểu sâu về trải nghiệm người tiêu dùng, tối ưu thử nghiệm sản
+                  phẩm và nâng cao độ tin cậy của mọi kết luận nghiên cứu.
+                </p>
+              </section>
+
+              <section id="tru-cot-phat-trien">
+                <h2 data-i18n="about.pillars.title">Ba trụ cột phát triển</h2>
+                <ol>
+                  <li data-i18n="about.pillars.item1">Tư vấn chiến lược R&D và cảm quan theo chuẩn quốc tế.</li>
+                  <li data-i18n="about.pillars.item2">
+                    Số hóa toàn diện quy trình đánh giá cảm quan, tối ưu tốc độ và độ chính xác dữ liệu.
+                  </li>
+                  <li data-i18n="about.pillars.item3">
+                    Nghiên cứu người tiêu dùng thế hệ mới dựa trên AI, Big Data và công nghệ đo lường hành vi (EEG,
+                    Eye-tracking, Biometrics).
+                  </li>
+                </ol>
+              </section>
+
+              <section id="cam-ket">
+                <h2 data-i18n="about.commitment.title">Cam kết</h2>
+                <p data-i18n="about.commitment.text">
+                  Chúng tôi xây dựng hệ sinh thái nghiên cứu tích hợp – khoa học, minh bạch và có khả năng dự báo – trở
+                  thành đối tác tin cậy đồng hành cùng doanh nghiệp trong đổi mới sản phẩm và phát triển bền vững ngành
+                  thực phẩm – đồ uống tại Việt Nam.
+                </p>
+              </section>
+            </div>
+          </div>
+          <!--end column -->
+        </div>
+        <!-- end s-about__content-end -->
+      </section>
+      <!-- end s-about -->
+
+      <!-- # menu
+        ================================================== -->
+      <section id="menu" class="container s-menu target-section">
+        <div class="row s-menu__header">
+          <div class="column xl-12 section-header-wrap">
+            <div class="section-header" data-num="02">
+              <h2 class="text-display-title" data-i18n="projects.title">Dự án</h2>
+            </div>
           </div>
         </div>
+        <!-- end s-menu__header -->
 
-        <div class="hidden md:block">
-          <div class="relative rounded-2xl overflow-hidden shadow-soft-lg">
-            <img src="https://www.unite.ai/wp-content/uploads/2023/11/sensory-AGI.png.webp" alt="Minh họa nghiên cứu" class="w-full h-64 object-cover">
-            <div class="absolute bottom-4 left-4 bg-white/80 backdrop-blur-sm rounded-lg p-3">
-              <div class="text-xs text-slate-600">Dự án nổi bật</div>
-              <div class="text-sm font-semibold text-slate-900">Ứng dụng AI đa ngành</div>
+        <div class="row s-menu__content">
+          <div class="column xl-12">
+            <div class="project-cards grid-cols grid-cols--wrap" style="--col-min-width: 300px">
+              <!-- Project Card 1: ASR -->
+              <div
+                class="project-card grid-cols__column project-card-clickable"
+                data-category="asr"
+                data-modal-id="modal-asr"
+                style="display: flex; flex-direction: column; height: 100%; cursor: pointer"
+              >
+                <div class="project-card__image" style="overflow: hidden; border-radius: 8px 8px 0 0; display: block">
+                  <img
+                    src="images/asr.png"
+                    alt="ASR Project"
+                    style="width: 100%; height: 160px; object-fit: cover; display: block; margin: 0; padding: 0"
+                  />
+                </div>
+                <div
+                  class="project-card__content"
+                  style="
+                    padding: 1.25rem;
+                    background: white;
+                    border-radius: 0 0 8px 8px;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1;
+                    margin-bottom: 20px;
+                  "
+                >
+                  <div
+                    class="project-card__meta"
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      margin-bottom: 0.75rem;
+                      font-size: 0.875rem;
+                      color: #666;
+                    "
+                  >
+                    <span
+                      class="project-card__category"
+                      style="font-size: 1.25rem"
+                      data-i18n="projects.card.asr.category"
+                      >ASR</span
+                    >
+                    <span class="project-card__year" style="font-size: 1.25rem">2025</span>
+                  </div>
+                  <h3
+                    class=""
+                    style="font-size: 1.75rem; font-weight: 600; margin-bottom: 0.5rem; color: #000; margin-top: 0"
+                    data-i18n="projects.card.asr.title"
+                  >
+                    Ứng dụng AI trong ASR cảm quan
+                  </h3>
+                  <p
+                    class="project-card__description"
+                    style="
+                      color: #666;
+                      margin-bottom: 1.5rem;
+                      line-height: 1.5;
+                      flex: 1;
+                      font-size: 1.25rem;
+                      margin-top: 0.75rem;
+                    "
+                    data-i18n="projects.card.asr.desc"
+                  >
+                    Huấn luyện mô hình nhận dạng giọng nói tiếng Việt tối ưu cho đánh giá cảm quan thực địa.
+                  </p>
+                  <div
+                    class="project-card__footer"
+                    style="display: flex; justify-content: space-between; align-items: center; margin-top: auto"
+                  >
+                    <a
+                      class="project-card__link"
+                      style="color: #0258af; text-decoration: none; font-weight: 500; font-size: 1.25rem"
+                    >
+                      <span data-i18n="projects.view">Xem dự án →</span>
+                    </a>
+                    <span class="project-card__group" style="font-size: 1.25rem; color: #666"
+                      ><span data-i18n="projects.group">Nhóm:</span> <span class="group-number">6</span></span
+                    >
+                  </div>
+                </div>
+              </div>
+              <!-- end project-card -->
+
+              <!-- Project Card 2: LLM Sensory Terminology -->
+              <div
+                class="project-card grid-cols__column project-card-clickable"
+                data-category="llm"
+                data-modal-id="modal-llm"
+                style="display: flex; flex-direction: column; height: 100%; cursor: pointer"
+              >
+                <div class="project-card__image" style="overflow: hidden; border-radius: 8px 8px 0 0; display: block">
+                  <img
+                    src="images/extract.png"
+                    alt="LLM Project"
+                    style="width: 100%; height: 160px; object-fit: cover; display: block; margin: 0; padding: 0"
+                  />
+                </div>
+                <div
+                  class="project-card__content"
+                  style="
+                    padding: 1.25rem;
+                    background: white;
+                    border-radius: 0 0 8px 8px;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1;
+                    margin-bottom: 20px;
+                  "
+                >
+                  <div
+                    class="project-card__meta"
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      margin-bottom: 0.75rem;
+                      font-size: 0.875rem;
+                      color: #666;
+                    "
+                  >
+                    <span
+                      class="project-card__category"
+                      style="font-size: 1.25rem"
+                      data-i18n="projects.card.llm.category"
+                      >LLM</span
+                    >
+                    <span class="project-card__year" style="font-size: 1.25rem">2025</span>
+                  </div>
+                  <h3
+                    class=""
+                    style="font-size: 1.75rem; font-weight: 600; margin-bottom: 0.5rem; color: #000; margin-top: 0"
+                    data-i18n="projects.card.llm.title"
+                  >
+                    LLMs trích xuất thuật ngữ cảm quan
+                  </h3>
+                  <p
+                    class="project-card__description"
+                    style="
+                      color: #666;
+                      margin-bottom: 1.5rem;
+                      line-height: 1.5;
+                      flex: 1;
+                      font-size: 1.25rem;
+                      margin-top: 0.75rem;
+                    "
+                    data-i18n="projects.card.llm.desc"
+                  >
+                    Fine-tune mô hình ngôn ngữ để nhận dạng và chuẩn hóa từ vựng cảm quan đa lĩnh vực.
+                  </p>
+                  <div
+                    class="project-card__footer"
+                    style="display: flex; justify-content: space-between; align-items: center; margin-top: auto"
+                  >
+                    <a
+                      class="project-card__link"
+                      style="color: #0258af; text-decoration: none; font-weight: 500; font-size: 1.25rem"
+                    >
+                      <span data-i18n="projects.view">Xem dự án →</span>
+                    </a>
+                    <span class="project-card__group" style="font-size: 1.25rem; color: #666">
+                      <span data-i18n="projects.group">Nhóm:</span> 4
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- end project-card -->
+
+              <!-- Project Card 3: LLM Consumer Research -->
+              <div
+                class="project-card grid-cols__column project-card-clickable"
+                data-category="consumer"
+                data-modal-id="modal-consumer"
+                style="display: flex; flex-direction: column; height: 100%; cursor: pointer"
+              >
+                <div class="project-card__image" style="overflow: hidden; border-radius: 8px 8px 0 0; display: block">
+                  <img
+                    src="images/consumer.png"
+                    alt="Consumer Research Project"
+                    style="width: 100%; height: 160px; object-fit: cover; display: block; margin: 0; padding: 0"
+                  />
+                </div>
+                <div
+                  class="project-card__content"
+                  style="
+                    padding: 1.25rem;
+                    background: white;
+                    border-radius: 0 0 8px 8px;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1;
+                    margin-bottom: 20px;
+                  "
+                >
+                  <div
+                    class="project-card__meta"
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      margin-bottom: 0.75rem;
+                      font-size: 0.875rem;
+                      color: #666;
+                    "
+                  >
+                    <span
+                      class="project-card__category"
+                      style="font-size: 1.25rem"
+                      data-i18n="projects.card.consumer.category"
+                      >Người tiêu dùng</span
+                    >
+                    <span class="project-card__year" style="font-size: 1.25rem">2024</span>
+                  </div>
+                  <h3
+                    class=""
+                    style="font-size: 1.75rem; font-weight: 600; margin-bottom: 0.5rem; color: #000; margin-top: 0"
+                    data-i18n="projects.card.consumer.title"
+                  >
+                    LLMs nghiên cứu người tiêu dùng
+                  </h3>
+                  <p
+                    class="project-card__description"
+                    style="
+                      color: #666;
+                      margin-bottom: 1.5rem;
+                      line-height: 1.5;
+                      flex: 1;
+                      font-size: 1.25rem;
+                      margin-top: 0.75rem;
+                    "
+                    data-i18n="projects.card.consumer.desc"
+                  >
+                    Ứng dụng mô hình hội thoại để phân tích insight cảm nhận và hành vi trải nghiệm sản phẩm.
+                  </p>
+                  <div
+                    class="project-card__footer"
+                    style="display: flex; justify-content: space-between; align-items: center; margin-top: auto"
+                  >
+                    <a
+                      class="project-card__link"
+                      style="color: #0258af; text-decoration: none; font-weight: 500; font-size: 1.25rem"
+                    >
+                      <span data-i18n="projects.view">Xem dự án →</span>
+                    </a>
+                    <span class="project-card__group" style="font-size: 1.25rem; color: #666">
+                      <span data-i18n="projects.group">Nhóm:</span> 5
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- end project-card -->
+
+              <!-- Project Card 4: Food Recognition -->
+              <div
+                class="project-card grid-cols__column project-card-clickable"
+                data-category="ai"
+                data-modal-id="modal-nutri"
+                style="display: flex; flex-direction: column; height: 100%; cursor: pointer"
+              >
+                <div class="project-card__image" style="overflow: hidden; border-radius: 8px 8px 0 0; display: block">
+                  <img
+                    src="images/nutri.png"
+                    alt="Food Recognition Project"
+                    style="width: 100%; height: 160px; object-fit: cover; display: block; margin: 0; padding: 0"
+                  />
+                </div>
+                <div
+                  class="project-card__content"
+                  style="
+                    padding: 1.25rem;
+                    background: white;
+                    border-radius: 0 0 8px 8px;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1;
+                    margin-bottom: 20px;
+                  "
+                >
+                  <div
+                    class="project-card__meta"
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      margin-bottom: 0.75rem;
+                      font-size: 0.875rem;
+                      color: #666;
+                    "
+                  >
+                    <span
+                      class="project-card__category"
+                      style="font-size: 1.25rem"
+                      data-i18n="projects.card.nutri.category"
+                      >AI</span
+                    >
+                    <span class="project-card__year" style="font-size: 1.25rem">2024</span>
+                  </div>
+                  <h3
+                    class=""
+                    style="font-size: 1.75rem; font-weight: 600; margin-bottom: 0.5rem; color: #000; margin-top: 0"
+                    data-i18n="projects.card.nutri.title"
+                  >
+                    Nutrition - Cá nhân hóa dinh dưỡng
+                  </h3>
+                  <p
+                    class="project-card__description"
+                    style="
+                      color: #666;
+                      margin-bottom: 1.5rem;
+                      line-height: 1.5;
+                      flex: 1;
+                      font-size: 1.25rem;
+                      margin-top: 0.75rem;
+                    "
+                    data-i18n="projects.card.nutri.desc"
+                  >
+                    Phát triển nền tảng web giúp chuẩn hóa đánh giá dinh dưỡng và trải nghiệm vị giác.
+                  </p>
+                  <div
+                    class="project-card__footer"
+                    style="display: flex; justify-content: space-between; align-items: center; margin-top: auto"
+                  >
+                    <a
+                      class="project-card__link"
+                      style="color: #0258af; text-decoration: none; font-weight: 500; font-size: 1.25rem"
+                    >
+                      <span data-i18n="projects.view">Xem dự án →</span>
+                    </a>
+                    <span class="project-card__group" style="font-size: 1.25rem; color: #666">
+                      <span data-i18n="projects.group">Nhóm:</span> 3
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- end project-card -->
+
+              <!-- Project Card 5: Quality Control -->
+              <div
+                class="project-card grid-cols__column project-card-clickable"
+                data-category="quality"
+                data-modal-id="modal-quality"
+                style="display: flex; flex-direction: column; height: 100%; cursor: pointer"
+              >
+                <div class="project-card__image" style="overflow: hidden; border-radius: 8px 8px 0 0; display: block">
+                  <img
+                    src="images/cvs.png"
+                    alt="Quality Control Project"
+                    style="width: 100%; height: 160px; object-fit: cover; display: block; margin: 0; padding: 0"
+                  />
+                </div>
+                <div
+                  class="project-card__content"
+                  style="
+                    padding: 1.25rem;
+                    background: white;
+                    border-radius: 0 0 8px 8px;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1;
+                    margin-bottom: 20px;
+                  "
+                >
+                  <div
+                    class="project-card__meta"
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      margin-bottom: 0.75rem;
+                      font-size: 0.875rem;
+                      color: #666;
+                    "
+                  >
+                    <span
+                      class="project-card__category"
+                      style="font-size: 1.25rem"
+                      data-i18n="projects.card.quality.category"
+                      >Chất lượng</span
+                    >
+                    <span class="project-card__year" style="font-size: 1.25rem">2024</span>
+                  </div>
+                  <h3
+                    class=""
+                    style="font-size: 1.75rem; font-weight: 600; margin-bottom: 0.5rem; color: #000; margin-top: 0"
+                    data-i18n="projects.card.quality.title"
+                  >
+                    Hệ thống thị giác máy tính
+                  </h3>
+                  <p
+                    class="project-card__description"
+                    style="
+                      color: #666;
+                      margin-bottom: 1.5rem;
+                      line-height: 1.5;
+                      flex: 1;
+                      font-size: 1.25rem;
+                      margin-top: 0.75rem;
+                    "
+                    data-i18n="projects.card.quality.desc"
+                  >
+                    Tự động hóa, phân tích hình ảnh và dashboard cho các ứng dụng kiểm soát sản phẩm trên dây chuyền
+                    công nghiệp.
+                  </p>
+                  <div
+                    class="project-card__footer"
+                    style="display: flex; justify-content: space-between; align-items: center; margin-top: auto"
+                  >
+                    <a
+                      class="project-card__link"
+                      style="color: #0258af; text-decoration: none; font-weight: 500; font-size: 1.25rem"
+                    >
+                      <span data-i18n="projects.view">Xem dự án →</span>
+                    </a>
+                    <span class="project-card__group" style="font-size: 1.25rem; color: #666">
+                      <span data-i18n="projects.group">Nhóm:</span> 7
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- end project-card -->
+
+              <!-- Project Card 6: Chatbot -->
+              <div
+                class="project-card grid-cols__column project-card-clickable"
+                data-category="ai"
+                data-modal-id="modal-qms"
+                style="display: flex; flex-direction: column; height: 100%; cursor: pointer"
+              >
+                <div class="project-card__image" style="overflow: hidden; border-radius: 8px 8px 0 0; display: block">
+                  <img
+                    src="images/qms.png"
+                    alt="Chatbot Project"
+                    style="width: 100%; height: 160px; object-fit: cover; display: block; margin: 0; padding: 0"
+                  />
+                </div>
+                <div
+                  class="project-card__content"
+                  style="
+                    padding: 1.25rem;
+                    background: white;
+                    border-radius: 0 0 8px 8px;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1;
+                    margin-bottom: 20px;
+                  "
+                >
+                  <div
+                    class="project-card__meta"
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      margin-bottom: 0.75rem;
+                      font-size: 0.875rem;
+                      color: #666;
+                    "
+                  >
+                    <span
+                      class="project-card__category"
+                      style="font-size: 1.25rem; color: #666"
+                      data-i18n="projects.card.qms.category"
+                      >AI</span
+                    >
+                    <span class="project-card__year" style="font-size: 1.25rem; color: #666">2025</span>
+                  </div>
+                  <h3
+                    class=""
+                    style="font-size: 2.25rem; font-weight: 600; margin-bottom: 0.5rem; color: #000; margin-top: 0"
+                    data-i18n="projects.card.qms.title"
+                  >
+                    QMS - QLCL và truy xuất nguồn gốc
+                  </h3>
+                  <p
+                    class="project-card__description"
+                    style="
+                      color: #666;
+                      margin-bottom: 1.5rem;
+                      line-height: 1.5;
+                      flex: 1;
+                      font-size: 1.25rem;
+                      margin-top: 0.75rem;
+                    "
+                    data-i18n="projects.card.qms.desc"
+                  >
+                    Hỗ trợ lưu trữ và quản lý toàn bộ thông tin trong quá trình sản xuất thực phẩm, đảm bảo tính minh
+                    bạch và dễ dàng truy xuất.
+                  </p>
+                  <div
+                    class="project-card__footer"
+                    style="display: flex; justify-content: space-between; align-items: center; margin-top: auto"
+                  >
+                    <a
+                      class="project-card__link"
+                      style="color: #0258af; text-decoration: none; font-weight: 500; font-size: 1.25rem"
+                    >
+                      <span data-i18n="projects.view">Xem dự án →</span>
+                    </a>
+                    <span class="project-card__group" style="font-size: 1.25rem; color: #666">
+                      <span data-i18n="projects.group">Nhóm:</span> 4
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- end project-card -->
+
+              <!-- Project Card 7: Data Analytics -->
+              <div
+                class="project-card grid-cols__column project-card-clickable"
+                data-category="analytics"
+                data-modal-id="modal-chatbot"
+                style="display: flex; flex-direction: column; height: 100%; cursor: pointer"
+              >
+                <div class="project-card__image" style="overflow: hidden; border-radius: 8px 8px 0 0; display: block">
+                  <img
+                    src="images/chatbot.png"
+                    alt="Data Analytics Project"
+                    style="width: 100%; height: 160px; object-fit: cover; display: block; margin: 0; padding: 0"
+                  />
+                </div>
+                <div
+                  class="project-card__content"
+                  style="
+                    padding: 1.25rem;
+                    background: white;
+                    border-radius: 0 0 8px 8px;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1;
+                    margin-bottom: 20px;
+                  "
+                >
+                  <div
+                    class="project-card__meta"
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      margin-bottom: 0.75rem;
+                      font-size: 0.875rem;
+                      color: #666;
+                    "
+                  >
+                    <span
+                      class="project-card__category"
+                      style="font-size: 1.25rem"
+                      data-i18n="projects.card.chatbot.category"
+                      >Phân tích</span
+                    >
+                    <span class="project-card__year" style="font-size: 1.25rem">2025</span>
+                  </div>
+                  <h3
+                    class=""
+                    style="font-size: 1.75rem; font-weight: 600; margin-bottom: 0.5rem; color: #000; margin-top: 0"
+                    data-i18n="projects.card.chatbot.title"
+                  >
+                    Chatbot - Trợ lý ảo cảm quan
+                  </h3>
+                  <p
+                    class="project-card__description"
+                    style="
+                      color: #666;
+                      margin-bottom: 1.5rem;
+                      line-height: 1.5;
+                      flex: 1;
+                      font-size: 1.25rem;
+                      margin-top: 0.75rem;
+                    "
+                    data-i18n="projects.card.chatbot.desc"
+                  >
+                    Phát triển nền tảng chatbot giúp người dùng đánh giá cảm quan sản phẩm thông qua việc hỏi đáp tự
+                    động.
+                  </p>
+                  <div
+                    class="project-card__footer"
+                    style="display: flex; justify-content: space-between; align-items: center; margin-top: auto"
+                  >
+                    <a
+                      class="project-card__link"
+                      style="color: #0258af; text-decoration: none; font-weight: 500; font-size: 1.25rem"
+                    >
+                      <span data-i18n="projects.view">Xem dự án →</span>
+                    </a>
+                    <span class="project-card__group" style="font-size: 1.25rem; color: #666">
+                      <span data-i18n="projects.group">Nhóm:</span> 5
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- end project-card -->
+
+              <!-- Project Card 8: Sensory Database -->
+              <div
+                class="project-card grid-cols__column project-card-clickable"
+                data-category="database"
+                data-modal-id="modal-sensbft"
+                style="display: flex; flex-direction: column; height: 100%; cursor: pointer"
+              >
+                <div class="project-card__image" style="overflow: hidden; border-radius: 8px 8px 0 0; display: block">
+                  <img
+                    src="images/sensbft.png"
+                    alt="Sensory Database Project"
+                    style="width: 100%; height: 160px; object-fit: cover; display: block; margin: 0; padding: 0"
+                  />
+                </div>
+                <div
+                  class="project-card__content"
+                  style="
+                    padding: 1.25rem;
+                    background: white;
+                    border-radius: 0 0 8px 8px;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1;
+                    margin-bottom: 20px;
+                  "
+                >
+                  <div
+                    class="project-card__meta"
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      margin-bottom: 0.75rem;
+                      font-size: 0.875rem;
+                      color: #666;
+                    "
+                  >
+                    <span
+                      class="project-card__category"
+                      style="font-size: 1.25rem"
+                      data-i18n="projects.card.sensbft.category"
+                      >Dữ liệu</span
+                    >
+                    <span class="project-card__year" style="font-size: 1.25rem">2025</span>
+                  </div>
+                  <h3
+                    class=""
+                    style="font-size: 1.75rem; font-weight: 600; margin-bottom: 0.5rem; color: #000; margin-top: 0"
+                    data-i18n="projects.card.sensbft.title"
+                  >
+                    SenSBFT - Webapp đánh giá cảm quan
+                  </h3>
+                  <p
+                    class="project-card__description"
+                    style="
+                      color: #666;
+                      margin-bottom: 1.5rem;
+                      line-height: 1.5;
+                      flex: 1;
+                      font-size: 1.25rem;
+                      margin-top: 0.75rem;
+                    "
+                    data-i18n="projects.card.sensbft.desc"
+                  >
+                    Phát triển nền tảng quản lý và lưu trữ dữ liệu cảm quan tập trung, hỗ trợ truy vấn, phân tích và
+                    chia sẻ dữ liệu một cách hiệu quả.
+                  </p>
+                  <div
+                    class="project-card__footer"
+                    style="display: flex; justify-content: space-between; align-items: center; margin-top: auto"
+                  >
+                    <a
+                      class="project-card__link"
+                      style="color: #0258af; text-decoration: none; font-weight: 500; font-size: 1.25rem"
+                    >
+                      <span data-i18n="projects.view">Xem dự án →</span>
+                    </a>
+                    <span class="project-card__group" style="font-size: 1.25rem; color: #666"
+                      ><span data-i18n="projects.group">Nhóm:</span> <span class="group-number">6</span></span
+                    >
+                  </div>
+                </div>
+              </div>
+              <!-- end project-card -->
+            </div>
+            <!-- end project-cards -->
+          </div>
+        </div>
+        <!-- end s-menu__content -->
+      </section>
+      <!-- end s-menu -->
+
+      <!-- Project Modals -->
+      <!-- Modal 1: ASR -->
+      <div id="modal-asr" class="project-modal" style="display: none">
+        <div class="project-modal__overlay"></div>
+        <div class="project-modal__content">
+          <button class="project-modal__close" aria-label="Close modal">&times;</button>
+          <div class="project-modal__header">
+            <img src="images/asr.png" alt="ASR Project" class="project-modal__image" />
+            <div class="project-modal__meta">
+              <span class="project-modal__category" data-i18n="projects.card.asr.category">ASR</span>
+              <span class="project-modal__year">2025</span>
+            </div>
+            <h2 class="project-modal__title" data-i18n="projects.card.asr.title">Ứng dụng AI trong ASR cảm quan</h2>
+            <p class="project-modal__description" data-i18n="projects.card.asr.desc">
+              Huấn luyện mô hình nhận dạng giọng nói tiếng Việt tối ưu cho đánh giá cảm quan thực địa.
+            </p>
+          </div>
+          <div class="project-modal__body">
+            <div class="project-modal__details">
+              <p>
+                <strong data-i18n="projects.modal.groupLabel">Nhóm:</strong>
+                <span class="group-number">6</span>
+              </p>
+              <p><strong data-i18n="projects.modal.detailLabel">Mô tả chi tiết:</strong></p>
+              <p data-i18n="projects.modal.asr.detail">
+                Dự án này tập trung vào việc phát triển và tối ưu hóa mô hình nhận dạng giọng nói tự động (ASR -
+                Automatic Speech Recognition) chuyên biệt cho tiếng Việt, với mục tiêu ứng dụng trong các nghiên cứu cảm
+                quan thực địa. Hệ thống được thiết kế để ghi nhận và chuyển đổi các đánh giá cảm quan bằng giọng nói
+                thành văn bản một cách chính xác và nhanh chóng.
+              </p>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- PROJECT GRID -->
-  <main id="projects" class="max-w-7xl mx-auto px-6 py-12">
-    <div class="flex items-center justify-between mb-8">
-      <div>
-        <h2 class="text-2xl font-semibold text-slate-900">Danh mục dự án AISens</h2>
-        <p class="text-sm text-slate-600 mt-1">Tập trung vào AI cảm quan, quản trị chất lượng và trải nghiệm người dùng.</p>
-      </div>
-
-      <div class="flex items-center gap-3">
-        <label class="text-sm text-slate-600 hidden sm:inline">Lọc:</label>
-        <select class="text-sm rounded-md border border-gray-200 px-3 py-2 text-slate-700">
-          <option>Tất cả</option>
-          <option>ASR</option>
-          <option>LLM</option>
-          <option>Ứng dụng cảm quan</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-      <!-- Card 1 -->
-      <article class="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-soft-lg transition transform hover:-translate-y-1 overflow-hidden">
-        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 bg-gradient-to-br from-brand-50 via-transparent to-transparent pointer-events-none"></div>
-        <a href="#" class="block overflow-hidden rounded-t-2xl">
-          <img src="https://media.licdn.com/dms/image/v2/D4D12AQFAXISlJH-UZg/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1669380727322?e=1765411200&v=beta&t=X1fptkn1tHPuGE_ax3-G8OfP5L5jErrB0Sc3trJ23GQ" alt="Project 1" class="w-full h-44 object-cover">
-        </a>
-        <div class="p-5">
-          <div class="flex items-center justify-between">
-            <div class="text-xs text-slate-500">ASR</div>
-            <div class="text-xs text-slate-400">2025</div>
-          </div>
-          <h3 class="mt-3 text-lg font-semibold text-slate-900">Ứng dụng AI trong ASR cảm quan</h3>
-          <p class="mt-2 text-sm text-slate-600">Huấn luyện mô hình nhận dạng giọng nói tiếng Việt tối ưu cho đánh giá cảm quan thực địa.</p>
-          <div class="mt-4 flex items-center justify-between">
-            <a href="#" class="text-sm font-medium text-brand-500 hover:underline">Xem dự án →</a>
-            <div class="text-sm text-slate-500">Nhóm: 6</div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Card 2 -->
-      <article class="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-soft-lg transition transform hover:-translate-y-1 overflow-hidden">
-        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 bg-gradient-to-br from-brand-50 via-transparent to-transparent pointer-events-none"></div>
-        <a href="#" class="block overflow-hidden rounded-t-2xl">
-          <img src="https://cdn.prod.website-files.com/66841c2a95405226a60d332e/6718da4393b6e71151e95841_AI%202.webp" alt="Project 2" class="w-full h-44 object-cover">
-        </a>
-        <div class="p-5">
-          <div class="flex items-center justify-between">
-            <div class="text-xs text-slate-500">LLM</div>
-            <div class="text-xs text-slate-400">2025</div>
-          </div>
-          <h3 class="mt-3 text-lg font-semibold text-slate-900">LLMs trích xuất thuật ngữ cảm quan</h3>
-          <p class="mt-2 text-sm text-slate-600">Fine-tune mô hình ngôn ngữ để nhận dạng và chuẩn hóa từ vựng cảm quan đa lĩnh vực.</p>
-          <div class="mt-4 flex items-center justify-between">
-            <a href="#" class="text-sm font-medium text-brand-500 hover:underline">Xem dự án →</a>
-            <div class="text-sm text-slate-500">Nhóm: 4</div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Card 3 -->
-      <article class="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-soft-lg transition transform hover:-translate-y-1 overflow-hidden">
-        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 bg-gradient-to-br from-brand-50 via-transparent to-transparent pointer-events-none"></div>
-        <a href="#" class="block overflow-hidden rounded-t-2xl">
-          <img src="https://media.licdn.com/dms/image/v2/D5612AQEzk7GYeL9NGQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1726050476069?e=1765411200&v=beta&t=G_BdKp_0z7ikH7HZMauLYG2pXQfHbsiGvXQssFzpVvM" alt="Project 3" class="w-full h-44 object-cover">
-        </a>
-        <div class="p-5">
-          <div class="flex items-center justify-between">
-            <div class="text-xs text-slate-500">Người tiêu dùng</div>
-            <div class="text-xs text-slate-400">2024</div>
-          </div>
-          <h3 class="mt-3 text-lg font-semibold text-slate-900">LLMs nghiên cứu người tiêu dùng</h3>
-          <p class="mt-2 text-sm text-slate-600">Ứng dụng mô hình hội thoại để phân tích insight cảm nhận và hành vi trải nghiệm sản phẩm.</p>
-          <div class="mt-4 flex items-center justify-between">
-            <a href="#" class="text-sm font-medium text-brand-500 hover:underline">Xem dự án →</a>
-            <div class="text-sm text-slate-500">Nhóm: 5</div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Card 4 -->
-      <article class="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-soft-lg transition transform hover:-translate-y-1 overflow-hidden">
-        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 bg-gradient-to-br from-brand-50 via-transparent to-transparent pointer-events-none"></div>
-        <a href="#" class="block overflow-hidden rounded-t-2xl">
-          <img src="https://cdn.prod.website-files.com/680a070c3b99253410dd3df5/680a070c3b99253410dd480b_67ed58b21ebacb3d437cade8_675a9b4c6c4cfafbcec611c5_66bc8485cb372b28c19a3f22_66bc82c48252c4fdcf10452c_Nutrition_fig4.png" alt="Project 4" class="w-full h-44 object-cover">
-        </a>
-        <div class="p-5">
-          <div class="flex items-center justify-between">
-            <div class="text-xs text-slate-500">Webapp</div>
-            <div class="text-xs text-slate-400">2024</div>
-          </div>
-          <h3 class="mt-3 text-lg font-semibold text-slate-900">Webapp Nutrition cảm quan</h3>
-          <p class="mt-2 text-sm text-slate-600">Phát triển nền tảng web giúp chuẩn hóa đánh giá dinh dưỡng và trải nghiệm vị giác.</p>
-          <div class="mt-4 flex items-center justify-between">
-            <a href="#" class="text-sm font-medium text-brand-500 hover:underline">Xem dự án →</a>
-            <div class="text-sm text-slate-500">Nhóm: 3</div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Card 5 -->
-      <article class="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-soft-lg transition transform hover:-translate-y-1 overflow-hidden">
-        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 bg-gradient-to-br from-brand-50 via-transparent to-transparent pointer-events-none"></div>
-        <a href="#" class="block overflow-hidden rounded-t-2xl">
-          <img src="https://framerusercontent.com/images/Qf6JXsPPJtjUNTwco0BDtyNJX60.png?lossless=1" alt="Project 5" class="w-full h-44 object-cover">
-        </a>
-        <div class="p-5">
-          <div class="flex items-center justify-between">
-            <div class="text-xs text-slate-500">Computer Vision</div>
-            <div class="text-xs text-slate-400">2023</div>
-          </div>
-          <h3 class="mt-3 text-lg font-semibold text-slate-900">Hệ thống thị giác máy tính</h3>
-          <p class="mt-2 text-sm text-slate-600">Tự động hóa, phân tích hình ảnh và dashboard cho các ứng dụng kiểm soát sản phẩm trên dây chuyền công nghiệp.</p>
-          <div class="mt-4 flex items-center justify-between">
-            <a href="#" class="text-sm font-medium text-brand-500 hover:underline">Xem dự án →</a>
-            <div class="text-sm text-slate-500">Nhóm: 8</div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Card 6 -->
-      <article class="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-soft-lg transition transform hover:-translate-y-1 overflow-hidden">
-        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 bg-gradient-to-br from-brand-50 via-transparent to-transparent pointer-events-none"></div>
-        <a href="#" class="block overflow-hidden rounded-t-2xl">
-          <img src="https://sendbird.imgix.net/cms/DALL%C2%B7E-2024-03-08-11.38.32-Create-an-image-depicting-an-AI-chatbot-represented-by-a-friendly-robot-sitting-at-a-desk-with-multiple-computer-screens.-Each-screen-displays-chat-bu.webp" alt="Project 6" class="w-full h-44 object-cover">
-        </a>
-        <div class="p-5">
-          <div class="flex items-center justify-between">
-            <div class="text-xs text-slate-500">QMS & Chatbot</div>
-            <div class="text-xs text-slate-400">2022</div>
-          </div>
-          <h3 class="mt-3 text-lg font-semibold text-slate-900">QMS & Chatbot tư vấn cảm quan</h3>
-          <p class="mt-2 text-sm text-slate-600">Xây dựng hệ thống quản lý chất lượng và chatbot AI hỗ trợ tổ chức cảm quan.</p>
-          <div class="mt-4 flex items-center justify-between">
-            <a href="#" class="text-sm font-medium text-brand-500 hover:underline">Xem dự án →</a>
-            <div class="text-sm text-slate-500">Nhóm: 7</div>
-          </div>
-        </div>
-      </article>
-    </div>
-  </main>
-
-  <!-- ABOUT / MISSION -->
-  <section id="about" class="relative bg-gray-50 overflow-hidden">
-    <div class="absolute inset-0 opacity-40 bg-[radial-gradient(circle,rgba(43,108,176,0.15),transparent_55%)]"></div>
-    <div class="relative max-w-7xl mx-auto px-6 py-16">
-      <div class="grid md:grid-cols-2 gap-10 items-center">
-        <div class="order-2 md:order-1">
-          <h3 class="text-2xl font-semibold">Về AISens</h3>
-          <p class="mt-4 text-slate-600">AISens được thành lập tại Đại học Bách Khoa Hà Nội nhằm chuẩn hóa đánh giá cảm quan và đưa AI vào chuỗi R&D sản phẩm. Chúng tôi kết hợp phản hồi người tiêu dùng, dữ liệu cảm quan đa kênh và hạ tầng số hoá để tạo ra giải pháp triển khai nhanh.</p>
-          <ul class="mt-6 space-y-3 text-slate-600">
-            <li class="flex items-start gap-3">
-              <div class="mt-1 w-2.5 h-2.5 rounded-full bg-brand-500"></div>
-              <div><strong>Liên ngành:</strong> kết nối chuyên gia cảm quan, AI, thiết kế trải nghiệm.</div>
-            </li>
-            <li class="flex items-start gap-3">
-              <div class="mt-1 w-2.5 h-2.5 rounded-full bg-brand-500"></div>
-              <div><strong>Mở & Tái lập:</strong> ưu tiên kiến trúc mở, chuẩn FAIR cho dữ liệu.</div>
-            </li>
-            <li class="flex items-start gap-3">
-              <div class="mt-1 w-2.5 h-2.5 rounded-full bg-brand-500"></div>
-              <div><strong>Chuyển giao nhanh:</strong> đồng hành doanh nghiệp trong từng sprint cải tiến.</div>
-            </li>
-          </ul>
-          <div class="mt-6">
-            <a href="#contact" class="inline-block px-5 py-3 rounded-lg border border-gray-200 text-sm hover:bg-white">Liên hệ với chúng tôi</a>
-          </div>
-        </div>
-
-        <div class="order-1 md:order-2 flex justify-center">
-          <div class="rounded-2xl overflow-hidden shadow-soft-lg max-w-full flex justify-center items-center">
-            <img src="./sensbft.jpg" alt="Ảnh giới thiệu" class="w-full max-w-[500px] h-auto object-contain mx-auto">
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT CTA -->
-  <section id="contact" class="max-w-7xl mx-auto px-6 py-12">
-    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-white via-brand-50 to-brand-100 border border-gray-100 p-8 md:p-12 shadow-soft-lg">
-      <div class="absolute -top-12 -right-10 h-32 w-32 rounded-full bg-white/40 blur-2xl"></div>
-      <div class="md:flex md:items-center md:justify-between relative">
-        <div>
-          <h4 class="text-xl font-semibold">Muốn hợp tác cùng AISens?</h4>
-          <p class="mt-2 text-slate-600">Đăng ký để nhận lịch workshop, bộ dữ liệu cảm quan và bản demo hệ thống mới nhất.</p>
-        </div>
-        <form class="mt-6 md:mt-0 flex gap-3">
-          <input type="email" placeholder="aisensbft@gmail.com" class="px-4 py-3 rounded-lg border border-gray-200 w-full md:w-80 focus:outline-none" />
-          <button class="px-4 py-3 rounded-lg bg-brand-500 text-white font-medium">Đăng ký</button>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="border-t border-gray-100 bg-white">
-    <div class="max-w-7xl mx-auto px-6 py-10">
-      <div class="md:flex md:justify-between md:items-start gap-8">
-        <div>
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-lg bg-brand-100 flex items-center justify-center font-semibold text-brand-500">AI</div>
-            <div>
-              <div class="text-sm font-semibold">AISens Lab</div>
-              <div class="text-xs text-slate-500">Đại học Bách Khoa Hà Nội</div>
+      <!-- Modal 2: LLM -->
+      <div id="modal-llm" class="project-modal" style="display: none">
+        <div class="project-modal__overlay"></div>
+        <div class="project-modal__content">
+          <button class="project-modal__close" aria-label="Close modal">&times;</button>
+          <div class="project-modal__header">
+            <img src="images/extract.png" alt="LLM Project" class="project-modal__image" />
+            <div class="project-modal__meta">
+              <span class="project-modal__category" data-i18n="projects.card.llm.category">LLM</span>
+              <span class="project-modal__year">2025</span>
             </div>
+            <h2 class="project-modal__title" data-i18n="projects.card.llm.title">LLMs trích xuất thuật ngữ cảm quan</h2>
+            <p class="project-modal__description" data-i18n="projects.card.llm.desc">
+              Fine-tune mô hình ngôn ngữ để nhận dạng và chuẩn hóa từ vựng cảm quan đa lĩnh vực.
+            </p>
           </div>
-          <p class="mt-4 text-sm text-slate-600 max-w-sm">Hệ sinh thái nghiên cứu cảm quan, AI và chuyển giao công nghệ của AISens. Nội dung sẽ được cập nhật theo tiến độ dự án tại ĐHBK Hà Nội.</p>
-        </div>
-
-        <div class="grid grid-cols-2 gap-6 sm:grid-cols-4">
-          <div>
-            <h5 class="text-sm font-semibold text-slate-900">Khám phá</h5>
-            <ul class="mt-3 text-sm text-slate-600 space-y-2">
-              <li><a href="#projects" class="hover:underline">Dự án cảm quan</a></li>
-              <li><a href="#about" class="hover:underline">Về AISens</a></li>
-              <li><a href="#contact" class="hover:underline">Hợp tác</a></li>
-            </ul>
-          </div>
-          <div>
-            <h5 class="text-sm font-semibold text-slate-900">Tài nguyên</h5>
-            <ul class="mt-3 text-sm text-slate-600 space-y-2">
-              <li><a href="#" class="hover:underline">Ấn phẩm cảm quan</a></li>
-              <li><a href="#" class="hover:underline">Dataset AISens</a></li>
-              <li><a href="#" class="hover:underline">Kho mã demo</a></li>
-            </ul>
-          </div>
-          <div>
-            <h5 class="text-sm font-semibold text-slate-900">Chính sách</h5>
-            <ul class="mt-3 text-sm text-slate-600 space-y-2">
-              <li><a href="#" class="hover:underline">Điều khoản hợp tác</a></li>
-              <li><a href="#" class="hover:underline">Quyền riêng tư</a></li>
-            </ul>
-          </div>
-          <div>
-            <h5 class="text-sm font-semibold text-slate-900">Kết nối</h5>
-            <div class="mt-3 flex items-center gap-3">
-              <!-- Inline SVG icons -->
-              <a href="#" aria-label="Twitter" class="p-2 rounded-md hover:bg-gray-100"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M8 19c7.732 0 11.955-6.408 11.955-11.955 0-.182 0-.363-.012-.544A8.548 8.548 0 0 0 22 4.92a8.36 8.36 0 0 1-2.357.646 4.137 4.137 0 0 0 1.815-2.28 8.253 8.253 0 0 1-2.605.995A4.122 4.122 0 0 0 11.07 8.07c0 .32.036.63.106.928A11.704 11.704 0 0 1 3.16 4.15a4.123 4.123 0 0 0 1.276 5.503 4.077 4.077 0 0 1-1.867-.516v.05c0 1.929 1.372 3.537 3.193 3.906a4.136 4.136 0 0 1-1.86.07c.525 1.63 2.048 2.816 3.853 2.848A8.28 8.28 0 0 1 2 17.58 11.68 11.68 0 0 0 8 19z" stroke="currentColor" stroke-width="0.8" /></svg></a>
-
-              <a href="#" aria-label="LinkedIn" class="p-2 rounded-md hover:bg-gray-100"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.1 1 2.48 1s2.5 1.12 2.5 2.5zM.34 8.24h4.28V24H.34V8.24zM8.94 8.24h4.1v2.13h.06c.57-1.08 1.97-2.22 4.05-2.22 4.33 0 5.12 2.86 5.12 6.58V24h-4.28v-7.53c0-1.8 0-4.12-2.51-4.12-2.51 0-2.9 1.98-2.9 4.02V24H8.94V8.24z" stroke="currentColor" stroke-width="0.7"/></svg></a>
-
-              <a href="#" aria-label="GitHub" class="p-2 rounded-md hover:bg-gray-100"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.1c-3.34.72-4.03-1.6-4.03-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.1-.75.08-.74.08-.74 1.2.09 1.83 1.23 1.83 1.23 1.08 1.85 2.83 1.32 3.52 1.01.11-.79.42-1.32.76-1.62-2.66-.3-5.46-1.33-5.46-5.93 0-1.31.47-2.38 1.23-3.22-.12-.3-.54-1.54.12-3.2 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0C17.9 5.8 18.9 6.12 18.9 6.12c.66 1.66.24 2.9.12 3.2.77.84 1.23 1.9 1.23 3.22 0 4.6-2.8 5.62-5.47 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.7.82.58A12 12 0 0 0 12 .5z" stroke="currentColor" stroke-width="0.6"/></svg></a>
+          <div class="project-modal__body">
+            <div class="project-modal__details">
+              <p>
+                <strong data-i18n="projects.modal.groupLabel">Nhóm:</strong>
+                <span class="group-number">4</span>
+              </p>
+              <p><strong data-i18n="projects.modal.detailLabel">Mô tả chi tiết:</strong></p>
+              <p data-i18n="projects.modal.llm.detail">
+                Dự án sử dụng các mô hình ngôn ngữ lớn (LLM) để tự động trích xuất và chuẩn hóa các thuật ngữ cảm quan
+                từ nhiều lĩnh vực khác nhau. Hệ thống có khả năng nhận diện và phân loại các từ vựng cảm quan một cách
+                chính xác, giúp chuẩn hóa dữ liệu và nâng cao chất lượng nghiên cứu.
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="mt-8 text-sm text-slate-500 border-t border-gray-100 pt-6">
-        © <span id="year"></span> AISens Lab · Đại học Bách Khoa Hà Nội 
+      <!-- Modal 3: Consumer -->
+      <div id="modal-consumer" class="project-modal" style="display: none">
+        <div class="project-modal__overlay"></div>
+        <div class="project-modal__content">
+          <button class="project-modal__close" aria-label="Close modal">&times;</button>
+          <div class="project-modal__header">
+            <img src="images/consumer.png" alt="Consumer Research Project" class="project-modal__image" />
+            <div class="project-modal__meta">
+              <span class="project-modal__category" data-i18n="projects.card.consumer.category">Người tiêu dùng</span>
+              <span class="project-modal__year">2024</span>
+            </div>
+            <h2 class="project-modal__title" data-i18n="projects.card.consumer.title">
+              LLMs nghiên cứu người tiêu dùng
+            </h2>
+            <p class="project-modal__description" data-i18n="projects.card.consumer.desc">
+              Ứng dụng mô hình hội thoại để phân tích insight cảm nhận và hành vi trải nghiệm sản phẩm.
+            </p>
+          </div>
+          <div class="project-modal__body">
+            <div class="project-modal__details">
+              <p>
+                <strong data-i18n="projects.modal.groupLabel">Nhóm:</strong>
+                <span class="group-number">5</span>
+              </p>
+              <p><strong data-i18n="projects.modal.detailLabel">Mô tả chi tiết:</strong></p>
+              <p data-i18n="projects.modal.consumer.detail">
+                Dự án ứng dụng các mô hình ngôn ngữ lớn trong nghiên cứu người tiêu dùng, sử dụng công nghệ hội thoại để
+                phân tích sâu các insight về cảm nhận và hành vi trải nghiệm sản phẩm. Hệ thống có khả năng hiểu và phân
+                tích ngữ cảnh từ các cuộc phỏng vấn và khảo sát.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </footer>
 
-  <script>
-    // set year
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-</body>
+      <!-- Modal 4: Nutrition -->
+      <div id="modal-nutri" class="project-modal" style="display: none">
+        <div class="project-modal__overlay"></div>
+        <div class="project-modal__content">
+          <button class="project-modal__close" aria-label="Close modal">&times;</button>
+          <div class="project-modal__header">
+            <img src="images/nutri.png" alt="Food Recognition Project" class="project-modal__image" />
+            <div class="project-modal__meta">
+              <span class="project-modal__category" data-i18n="projects.card.nutri.category">AI</span>
+              <span class="project-modal__year">2024</span>
+            </div>
+            <h2 class="project-modal__title" data-i18n="projects.card.nutri.title">
+              Nutrition - Cá nhân hóa dinh dưỡng
+            </h2>
+            <p class="project-modal__description" data-i18n="projects.card.nutri.desc">
+              Phát triển nền tảng web giúp chuẩn hóa đánh giá dinh dưỡng và trải nghiệm vị giác.
+            </p>
+          </div>
+          <div class="project-modal__body">
+            <div class="project-modal__details">
+              <p>
+                <strong data-i18n="projects.modal.groupLabel">Nhóm:</strong>
+                <span class="group-number">3</span>
+              </p>
+              <p><strong data-i18n="projects.modal.detailLabel">Mô tả chi tiết:</strong></p>
+              <p data-i18n="projects.modal.nutri.detail">
+                Nền tảng web được phát triển để cá nhân hóa dinh dưỡng dựa trên đánh giá cảm quan. Hệ thống kết hợp việc
+                chuẩn hóa đánh giá dinh dưỡng với trải nghiệm vị giác, giúp người dùng có được các khuyến nghị dinh
+                dưỡng phù hợp với sở thích và nhu cầu cá nhân.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal 5: Quality -->
+      <div id="modal-quality" class="project-modal" style="display: none">
+        <div class="project-modal__overlay"></div>
+        <div class="project-modal__content">
+          <button class="project-modal__close" aria-label="Close modal">&times;</button>
+          <div class="project-modal__header">
+            <img src="images/cvs.png" alt="Quality Control Project" class="project-modal__image" />
+            <div class="project-modal__meta">
+              <span class="project-modal__category" data-i18n="projects.card.quality.category">Chất lượng</span>
+              <span class="project-modal__year">2024</span>
+            </div>
+            <h2 class="project-modal__title" data-i18n="projects.card.quality.title">Hệ thống thị giác máy tính</h2>
+            <p class="project-modal__description" data-i18n="projects.card.quality.desc">
+              Tự động hóa, phân tích hình ảnh và dashboard cho các ứng dụng kiểm soát sản phẩm trên dây chuyền công
+              nghiệp.
+            </p>
+          </div>
+          <div class="project-modal__body">
+            <div class="project-modal__details">
+              <p>
+                <strong data-i18n="projects.modal.groupLabel">Nhóm:</strong>
+                <span class="group-number">7</span>
+              </p>
+              <p><strong data-i18n="projects.modal.detailLabel">Mô tả chi tiết:</strong></p>
+              <p data-i18n="projects.modal.quality.detail">
+                Hệ thống thị giác máy tính được phát triển để tự động hóa quy trình kiểm soát chất lượng sản phẩm. Hệ
+                thống có khả năng phân tích hình ảnh trong thời gian thực và cung cấp dashboard trực quan để theo dõi và
+                quản lý chất lượng sản phẩm trên dây chuyền sản xuất công nghiệp.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal 6: QMS -->
+      <div id="modal-qms" class="project-modal" style="display: none">
+        <div class="project-modal__overlay"></div>
+        <div class="project-modal__content">
+          <button class="project-modal__close" aria-label="Close modal">&times;</button>
+          <div class="project-modal__header">
+            <img src="images/qms.png" alt="Chatbot Project" class="project-modal__image" />
+            <div class="project-modal__meta">
+              <span class="project-modal__category" data-i18n="projects.card.qms.category">AI</span>
+              <span class="project-modal__year">2025</span>
+            </div>
+            <h2 class="project-modal__title" data-i18n="projects.card.qms.title">QMS - QLCL và truy xuất nguồn gốc</h2>
+            <p class="project-modal__description" data-i18n="projects.card.qms.desc">
+              Hỗ trợ lưu trữ và quản lý toàn bộ thông tin trong quá trình sản xuất thực phẩm, đảm bảo tính minh bạch và
+              dễ dàng truy xuất.
+            </p>
+          </div>
+          <div class="project-modal__body">
+            <div class="project-modal__details">
+              <p>
+                <strong data-i18n="projects.modal.groupLabel">Nhóm:</strong>
+                <span class="group-number">4</span>
+              </p>
+              <p><strong data-i18n="projects.modal.detailLabel">Mô tả chi tiết:</strong></p>
+              <p data-i18n="projects.modal.qms.detail">
+                Hệ thống quản lý chất lượng (QMS) được thiết kế để quản lý và truy xuất nguồn gốc sản phẩm thực phẩm. Hệ
+                thống lưu trữ toàn bộ thông tin trong quá trình sản xuất, từ nguyên liệu đầu vào đến sản phẩm cuối cùng,
+                đảm bảo tính minh bạch và khả năng truy xuất thông tin một cách nhanh chóng và chính xác.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal 7: Chatbot -->
+      <div id="modal-chatbot" class="project-modal" style="display: none">
+        <div class="project-modal__overlay"></div>
+        <div class="project-modal__content">
+          <button class="project-modal__close" aria-label="Close modal">&times;</button>
+          <div class="project-modal__header">
+            <img src="images/chatbot.png" alt="Data Analytics Project" class="project-modal__image" />
+            <div class="project-modal__meta">
+              <span class="project-modal__category" data-i18n="projects.card.chatbot.category">Phân tích</span>
+              <span class="project-modal__year">2025</span>
+            </div>
+            <h2 class="project-modal__title" data-i18n="projects.card.chatbot.title">Chatbot - Trợ lý ảo cảm quan</h2>
+            <p class="project-modal__description" data-i18n="projects.card.chatbot.desc">
+              Phát triển nền tảng chatbot giúp người dùng đánh giá cảm quan sản phẩm thông qua việc hỏi đáp tự động.
+            </p>
+          </div>
+          <div class="project-modal__body">
+            <div class="project-modal__details">
+              <p>
+                <strong data-i18n="projects.modal.groupLabel">Nhóm:</strong>
+                <span class="group-number">5</span>
+              </p>
+              <p><strong data-i18n="projects.modal.detailLabel">Mô tả chi tiết:</strong></p>
+              <p data-i18n="projects.modal.chatbot.detail">
+                Chatbot trợ lý ảo cảm quan được phát triển để hỗ trợ người dùng trong việc đánh giá cảm quan sản phẩm.
+                Hệ thống sử dụng công nghệ AI để tương tác với người dùng thông qua hỏi đáp tự động, giúp thu thập và
+                phân tích dữ liệu cảm quan một cách hiệu quả.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal 8: SenSBFT -->
+      <div id="modal-sensbft" class="project-modal" style="display: none">
+        <div class="project-modal__overlay"></div>
+        <div class="project-modal__content">
+          <button class="project-modal__close" aria-label="Close modal">&times;</button>
+          <div class="project-modal__header">
+            <img src="images/sensbft.png" alt="Sensory Database Project" class="project-modal__image" />
+            <div class="project-modal__meta">
+              <span class="project-modal__category" data-i18n="projects.card.sensbft.category">Dữ liệu</span>
+              <span class="project-modal__year">2025</span>
+            </div>
+            <h2 class="project-modal__title" data-i18n="projects.card.sensbft.title">
+              SenSBFT - Webapp đánh giá cảm quan
+            </h2>
+            <p class="project-modal__description" data-i18n="projects.card.sensbft.desc">
+              Phát triển nền tảng quản lý và lưu trữ dữ liệu cảm quan tập trung, hỗ trợ truy vấn, phân tích và chia sẻ
+              dữ liệu một cách hiệu quả.
+            </p>
+          </div>
+          <div class="project-modal__body">
+            <div class="project-modal__details">
+              <p>
+                <strong data-i18n="projects.modal.groupLabel">Nhóm:</strong>
+                <span class="group-number">6</span>
+              </p>
+              <p><strong data-i18n="projects.modal.detailLabel">Mô tả chi tiết:</strong></p>
+              <p data-i18n="projects.modal.sensbft.detail">
+                SenSBFT là nền tảng webapp được phát triển để quản lý và lưu trữ dữ liệu cảm quan một cách tập trung. Hệ
+                thống hỗ trợ các chức năng truy vấn, phân tích và chia sẻ dữ liệu, giúp các nhà nghiên cứu và doanh
+                nghiệp quản lý thông tin cảm quan một cách hiệu quả và có hệ thống.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- # gallery
+        ================================================== -->
+      <section id="gallery" class="container s-gallery target-section">
+        <div class="row s-gallery__header">
+          <div class="column xl-12 section-header-wrap">
+            <div class="section-header" data-num="03">
+              <h2 class="text-display-title" data-i18n="gallery.title">Hình ảnh hoạt động</h2>
+            </div>
+          </div>
+          <!-- end section-header-wrap -->
+        </div>
+        <!-- end s-gallery__header -->
+
+        <div class="gallery-items grid-cols grid-cols--wrap">
+          <div class="gallery-items__item grid-cols__column">
+            <a href="images/gallery/large/l-gallery-01.jpg" class="gallery-items__item-thumb glightbox">
+              <img
+                src="images/gallery/gallery-01.jpg"
+                srcset="images/gallery/gallery-01.jpg 1x, images/gallery/gallery-01@2x.jpg 2x"
+                alt=""
+              />
+            </a>
+          </div>
+          <!-- end gallery-items__item-->
+
+          <div class="gallery-items__item grid-cols__column">
+            <a href="images/gallery/large/l-gallery-02.jpg" class="gallery-items__item-thumb glightbox">
+              <img
+                src="images/gallery/gallery-02.jpg"
+                srcset="images/gallery/gallery-02.jpg 1x, images/gallery/gallery-02@2x.jpg 2x"
+                alt=""
+              />
+            </a>
+          </div>
+          <!-- end gallery-items__item -->
+
+          <div class="gallery-items__item grid-cols__column">
+            <a href="images/gallery/large/l-gallery-03.jpg" class="gallery-items__item-thumb glightbox">
+              <img
+                src="images/gallery/gallery-03.jpg"
+                srcset="images/gallery/gallery-03.jpg 1x, images/gallery/gallery-03@2x.jpg 2x"
+                alt=""
+              />
+            </a>
+          </div>
+          <!-- end gallery-items__item -->
+
+          <div class="gallery-items__item grid-cols__column">
+            <a href="images/gallery/large/l-gallery-04.jpg" class="gallery-items__item-thumb glightbox">
+              <img
+                src="images/gallery/gallery-04.jpg"
+                srcset="images/gallery/gallery-04.jpg 1x, images/gallery/gallery-04@2x.jpg 2x"
+                alt=""
+              />
+            </a>
+          </div>
+          <!-- end gallery-items__item -->
+
+          <div class="gallery-items__item grid-cols__column">
+            <a href="images/gallery/large/l-gallery-05.jpg" class="gallery-items__item-thumb glightbox">
+              <img
+                src="images/gallery/gallery-05.jpg"
+                srcset="images/gallery/gallery-05.jpg 1x, images/gallery/gallery-05@2x.jpg 2x"
+                alt=""
+              />
+            </a>
+          </div>
+          <!-- end gallery-items__item -->
+
+          <div class="gallery-items__item grid-cols__column">
+            <a href="images/gallery/large/l-gallery-06.jpg" class="gallery-items__item-thumb glightbox">
+              <img
+                src="images/gallery/gallery-06.jpg"
+                srcset="images/gallery/gallery-06.jpg 1x, images/gallery/gallery-06@2x.jpg 2x"
+                alt=""
+              />
+            </a>
+          </div>
+          <!-- end gallery-items__item -->
+
+          <div class="gallery-items__item grid-cols__column">
+            <a href="images/gallery/large/l-gallery-07.jpg" class="gallery-items__item-thumb glightbox">
+              <img
+                src="images/gallery/gallery-07.jpg"
+                srcset="images/gallery/gallery-07.jpg 1x, images/gallery/gallery-07@2x.jpg 2x"
+                alt=""
+              />
+            </a>
+          </div>
+          <!-- end gallery-items__item -->
+
+          <div class="gallery-items__item grid-cols__column">
+            <a href="images/gallery/large/l-gallery-08.jpg" class="gallery-items__item-thumb glightbox">
+              <img
+                src="images/gallery/gallery-08.jpg"
+                srcset="images/gallery/gallery-08.jpg 1x, images/gallery/gallery-08@2x.jpg 2x"
+                alt=""
+              />
+            </a>
+          </div>
+          <!-- end gallery-items__item -->
+        </div>
+        <!-- end grid-list-items -->
+      </section>
+      <!-- end s-gallery -->
+
+      <!-- # testimonials
+        ================================================== -->
+      <section id="testimonials" class="container s-testimonials">
+        <div class="row s-testimonials__content">
+          <div class="column xl-12">
+            <h3 class="testimonials-title u-text-center" data-i18n="team.title">Đội ngũ</h3>
+
+            <div class="team-grid" style="display: grid; gap: 2rem; margin-top: 3rem">
+              <!-- Hàng 1: 1 người -->
+              <div
+                class="team-row"
+                style="
+                  display: grid;
+                  grid-template-columns: 1fr;
+                  justify-items: center;
+                  max-width: 400px;
+                  margin: 0 auto;
+                "
+              >
+                <div class="team-member" style="text-align: center">
+                  <div class="team-member__avatar" style="margin-bottom: 1rem">
+                    <img
+                      src="images/avatars/user-02.jpg"
+                      alt="Team member"
+                      style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover"
+                    />
+                  </div>
+                  <cite
+                    class="team-member__name"
+                    style="
+                      display: block;
+                      font-style: normal;
+                      font-weight: 600;
+                      font-size: 1.25rem;
+                      margin-bottom: 0.5rem;
+                    "
+                  >
+                    PGS.TS NGUYỄN HOÀNG DZŨNG
+                    <span style="display: block; font-weight: normal; font-size: 1rem; color: #666; margin-top: 0.25rem"
+                      >GIẢNG VIÊN ĐẠI HỌC BÁCH KHOA ĐHQG HCM
+                    </span>
+                  </cite>
+                </div>
+              </div>
+
+              <!-- Hàng 2: 1 người -->
+              <div
+                class="team-row"
+                style="
+                  display: grid;
+                  grid-template-columns: 1fr;
+                  justify-items: center;
+                  max-width: 400px;
+                  margin: 0 auto;
+                "
+              >
+                <div class="team-member" style="text-align: center">
+                  <div class="team-member__avatar" style="margin-bottom: 1rem">
+                    <img
+                      src="images/avatars/user-03.jpg"
+                      alt="Team member"
+                      style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover"
+                    />
+                  </div>
+                  <cite
+                    class="team-member__name"
+                    style="
+                      display: block;
+                      font-style: normal;
+                      font-weight: 600;
+                      font-size: 1.25rem;
+                      margin-bottom: 0.5rem;
+                    "
+                  >
+                    TS. HOÀNG QUỐC TUẤN
+                    <span style="display: block; font-weight: normal; font-size: 1rem; color: #666; margin-top: 0.25rem"
+                      >GIẢNG VIÊN ĐẠI HỌC BÁCH KHOA HÀ NỘI
+                    </span>
+                  </cite>
+                </div>
+              </div>
+
+              <!-- Hàng 3: 5 người -->
+              <div class="team-row" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 2rem">
+                <div class="team-member" style="text-align: center">
+                  <div class="team-member__avatar" style="margin-bottom: 1rem">
+                    <img
+                      src="images/avatars/user-01.jpg"
+                      alt="Team member"
+                      style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto"
+                    />
+                  </div>
+                  <cite
+                    class="team-member__name"
+                    style="
+                      display: block;
+                      font-style: normal;
+                      font-weight: 600;
+                      font-size: 1.1rem;
+                      margin-bottom: 0.5rem;
+                    "
+                  >
+                    ThS. LÊ TUẤN PHÚC
+                    <span
+                      style="display: block; font-weight: normal; font-size: 0.9rem; color: #666; margin-top: 0.25rem"
+                      >GIẢNG VIÊN ĐẠI HỌC BÁCH KHOA HÀ NỘI
+                    </span>
+                  </cite>
+                </div>
+                <div class="team-member" style="text-align: center">
+                  <div class="team-member__avatar" style="margin-bottom: 1rem">
+                    <img
+                      src="images/avatars/user-06.jpg"
+                      alt="Team member"
+                      style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto"
+                    />
+                  </div>
+                  <cite
+                    class="team-member__name"
+                    style="
+                      display: block;
+                      font-style: normal;
+                      font-weight: 600;
+                      font-size: 1.1rem;
+                      margin-bottom: 0.5rem;
+                    "
+                  >
+                    ThS. TRẦN THỊ THANH HOA
+                    <span
+                      style="display: block; font-weight: normal; font-size: 0.9rem; color: #666; margin-top: 0.25rem"
+                      >GIẢNG VIÊN ĐẠI HỌC VIỆT NHẬT
+                    </span>
+                  </cite>
+                </div>
+                <div class="team-member" style="text-align: center">
+                  <div class="team-member__avatar" style="margin-bottom: 1rem">
+                    <img
+                      src="images/avatars/user-02.jpg"
+                      alt="Team member"
+                      style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto"
+                    />
+                  </div>
+                  <cite
+                    class="team-member__name"
+                    style="
+                      display: block;
+                      font-style: normal;
+                      font-weight: 600;
+                      font-size: 1.1rem;
+                      margin-bottom: 0.5rem;
+                    "
+                  >
+                    KS ĐÀM HUY THÁI
+                    <span
+                      style="display: block; font-weight: normal; font-size: 0.9rem; color: #666; margin-top: 0.25rem"
+                      >ĐẠI HỌC BÁCH KHOA HÀ NỘI
+                    </span>
+                  </cite>
+                </div>
+                <div class="team-member" style="text-align: center">
+                  <div class="team-member__avatar" style="margin-bottom: 1rem">
+                    <img
+                      src="images/avatars/user-03.jpg"
+                      alt="Team member"
+                      style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto"
+                    />
+                  </div>
+                  <cite
+                    class="team-member__name"
+                    style="
+                      display: block;
+                      font-style: normal;
+                      font-weight: 600;
+                      font-size: 1.1rem;
+                      margin-bottom: 0.5rem;
+                    "
+                  >
+                    KS TRẦN XUÂN TIẾN
+                    <span
+                      style="display: block; font-weight: normal; font-size: 0.9rem; color: #666; margin-top: 0.25rem"
+                      >ĐẠI HỌC BÁCH KHOA HÀ NỘI</span
+                    >
+                  </cite>
+                </div>
+                <div class="team-member" style="text-align: center">
+                  <div class="team-member__avatar" style="margin-bottom: 1rem">
+                    <img
+                      src="images/avatars/user-01.jpg"
+                      alt="Team member"
+                      style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto"
+                    />
+                  </div>
+                  <cite
+                    class="team-member__name"
+                    style="
+                      display: block;
+                      font-style: normal;
+                      font-weight: 600;
+                      font-size: 1.1rem;
+                      margin-bottom: 0.5rem;
+                    "
+                  >
+                    KS LÊ THỊ HOA QUỲNH
+                    <span
+                      style="display: block; font-weight: normal; font-size: 0.9rem; color: #666; margin-top: 0.25rem"
+                      >ĐẠI HỌC BÁCH KHOA HÀ NỘI</span
+                    >
+                  </cite>
+                </div>
+              </div>
+
+              <!-- Hàng 4: 7 người -->
+              <div class="team-row" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 1.5rem">
+                <div class="team-member" style="text-align: center">
+                  <div class="team-member__avatar" style="margin-bottom: 1rem">
+                    <img
+                      src="images/avatars/user-01.jpg"
+                      alt="Team member"
+                      style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin: 0 auto"
+                    />
+                  </div>
+                  <cite
+                    class="team-member__name"
+                    style="display: block; font-style: normal; font-weight: 600; font-size: 1rem; margin-bottom: 0.5rem"
+                  >
+                    SV TRẦN BÁ TÀI
+                    <span
+                      style="display: block; font-weight: normal; font-size: 0.85rem; color: #666; margin-top: 0.25rem"
+                      >K67 - ĐẠI HỌC BÁCH KHOA HÀ NỘI</span
+                    >
+                  </cite>
+                </div>
+                <div class="team-member" style="text-align: center">
+                  <div class="team-member__avatar" style="margin-bottom: 1rem">
+                    <img
+                      src="images/avatars/user-02.jpg"
+                      alt="Team member"
+                      style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin: 0 auto"
+                    />
+                  </div>
+                  <cite
+                    class="team-member__name"
+                    style="display: block; font-style: normal; font-weight: 600; font-size: 1rem; margin-bottom: 0.5rem"
+                  >
+                    SV NGUYỄN TÙNG LÂM
+                    <span
+                      style="display: block; font-weight: normal; font-size: 0.85rem; color: #666; margin-top: 0.25rem"
+                      >K67 - ĐẠI HỌC BÁCH KHOA HÀ NỘI</span
+                    >
+                  </cite>
+                </div>
+                <div class="team-member" style="text-align: center">
+                  <div class="team-member__avatar" style="margin-bottom: 1rem">
+                    <img
+                      src="images/avatars/user-03.jpg"
+                      alt="Team member"
+                      style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin: 0 auto"
+                    />
+                  </div>
+                  <cite
+                    class="team-member__name"
+                    style="display: block; font-style: normal; font-weight: 600; font-size: 1rem; margin-bottom: 0.5rem"
+                  >
+                    SV LÊ THỊ THẮM
+                    <span
+                      style="display: block; font-weight: normal; font-size: 0.85rem; color: #666; margin-top: 0.25rem"
+                      >K69 - ĐẠI HỌC BÁCH KHOA HÀ NỘI</span
+                    >
+                  </cite>
+                </div>
+                <div class="team-member" style="text-align: center">
+                  <div class="team-member__avatar" style="margin-bottom: 1rem">
+                    <img
+                      src="images/avatars/user-06.jpg"
+                      alt="Team member"
+                      style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin: 0 auto"
+                    />
+                  </div>
+                  <cite
+                    class="team-member__name"
+                    style="display: block; font-style: normal; font-weight: 600; font-size: 1rem; margin-bottom: 0.5rem"
+                  >
+                    SV NGÔ THANH THẢO
+                    <span
+                      style="display: block; font-weight: normal; font-size: 0.85rem; color: #666; margin-top: 0.25rem"
+                      >K69 - ĐẠI HỌC BÁCH KHOA HÀ NỘI</span
+                    >
+                  </cite>
+                </div>
+                <div class="team-member" style="text-align: center">
+                  <div class="team-member__avatar" style="margin-bottom: 1rem">
+                    <img
+                      src="images/avatars/user-01.jpg"
+                      alt="Team member"
+                      style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin: 0 auto"
+                    />
+                  </div>
+                  <cite
+                    class="team-member__name"
+                    style="display: block; font-style: normal; font-weight: 600; font-size: 1rem; margin-bottom: 0.5rem"
+                  >
+                    SV NGUYỄN HÀ VI
+                    <span
+                      style="display: block; font-weight: normal; font-size: 0.85rem; color: #666; margin-top: 0.25rem"
+                      >K69 - ĐẠI HỌC BÁCH KHOA HÀ NỘI</span
+                    >
+                  </cite>
+                </div>
+                <div class="team-member" style="text-align: center">
+                  <div class="team-member__avatar" style="margin-bottom: 1rem">
+                    <img
+                      src="images/avatars/user-02.jpg"
+                      alt="Team member"
+                      style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin: 0 auto"
+                    />
+                  </div>
+                  <cite
+                    class="team-member__name"
+                    style="display: block; font-style: normal; font-weight: 600; font-size: 1rem; margin-bottom: 0.5rem"
+                  >
+                    SV VŨ THỊ THÙY NHUNG
+                    <span
+                      style="display: block; font-weight: normal; font-size: 0.85rem; color: #666; margin-top: 0.25rem"
+                      >K69 - ĐẠI HỌC BÁCH KHOA HÀ NỘI</span
+                    >
+                  </cite>
+                </div>
+                <div class="team-member" style="text-align: center">
+                  <div class="team-member__avatar" style="margin-bottom: 1rem">
+                    <img
+                      src="images/avatars/user-03.jpg"
+                      alt="Team member"
+                      style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin: 0 auto"
+                    />
+                  </div>
+                  <cite
+                    class="team-member__name"
+                    style="display: block; font-style: normal; font-weight: 600; font-size: 1rem; margin-bottom: 0.5rem"
+                  >
+                    SV NGUYỄN HẢI LÂM
+                    <span
+                      style="display: block; font-weight: normal; font-size: 0.85rem; color: #666; margin-top: 0.25rem"
+                      >K70 - ĐẠI HỌC BÁCH KHOA HÀ NỘI</span
+                    >
+                  </cite>
+                </div>
+              </div>
+            </div>
+            <!-- end team-grid -->
+          </div>
+          <!-- end column -->
+        </div>
+        <!-- end s-testimonials__content -->
+      </section>
+      <!-- end s-testimonials -->
+
+      <!-- # footer 
+        ================================================== -->
+
+      <!-- end s-footer -->
+    </div>
+    <!-- end page-wrap -->
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      // Project filter functionality
+      document.addEventListener('DOMContentLoaded', function () {
+        const filterSelect = document.getElementById('filter-select');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        if (filterSelect) {
+          filterSelect.addEventListener('change', function () {
+            const selectedCategory = this.value;
+
+            projectCards.forEach(function (card) {
+              if (selectedCategory === 'all' || card.getAttribute('data-category') === selectedCategory) {
+                card.style.display = 'block';
+              } else {
+                card.style.display = 'none';
+              }
+            });
+          });
+        }
+      });
+    </script>
+  </body>
 </html>
-    
